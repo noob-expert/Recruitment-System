@@ -1,3 +1,31 @@
+<!--一、项目准备 -->
+<!--
+1. 项目介绍
+2. 技术选型
+3. 前端路由
+4. API/接口
+ -->
+<!-- 二、项目应用开发笔记 -->
+<!-- 
+1.脚手架搭建项目，初始化环境 
+-- 脚手架搭建
+-- npm start验证
+2.服务器后台搭建，初始化app.js及路由管理 
+--express框架下载+body-parser解析post请求模块下载
+--app.js和router.js初始化
+--nodemon app.js验证
+3. mongodb数据库和mogoose模块引入，使用node操作mondogb数据库
+-- mongodb下载启动服务
+-- mongoose模块下载
+-- 初始化环境
+--
+4. 前后台简单交互验证 
+-- axios请求
+5. 
+   
+
+
+ -->
 
 ## Available Scripts
 
