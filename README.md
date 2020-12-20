@@ -1,3 +1,5 @@
+<!-- !!!!项目应用开发笔记 -->
+
 <!--一、项目准备 -->
 <!--
 1. 项目介绍
@@ -5,27 +7,56 @@
 3. 前端路由
 4. API/接口
  -->
-<!-- 二、项目应用开发笔记 -->
+
+ <!-- 二. 环境搭建与验证 -->
 <!-- 
-1.脚手架搭建项目，初始化环境 
+1.脚手架搭建项目，初始化环境 ，git管理
 -- 脚手架搭建
 -- npm start验证
 2.服务器后台搭建，初始化app.js及路由管理 
 --express框架下载+body-parser解析post请求模块下载
 --app.js和router.js初始化
 --nodemon app.js验证
-3. mongodb数据库和mogoose模块引入，使用node操作mondogb数据库
+1. mongodb数据库和mogoose模块引入，使用node操作mondogb数据库
 -- mongodb下载启动服务
 -- mongoose模块下载
 -- 初始化环境
---
+-- 操作数据库验证
 4. 前后台简单交互验证 
--- axios请求
-5. 
-   
-
-
+-- axios请求封装
+-- 注意：可能会碰到跨域请求返错，需要在后端设置:--可以总结记入踩坑笔记
+res.setHeader("Access-Control-Allow-Origin","*")
+除此之外，还有JSONP，HTTP Proxy代理的方式，需要知晓
+5. 基本目录设计,normalize.css样式管理
+6. 引入antd(可选,按需引入样式（优化，可记录笔记）和自定义主题)，引入router路由管理
  -->
+
+ <!-- 三. 项目login模块设计及开发 -->
+<!--
+1. 静态界面设计，引入antd From表单样式
+--如何使该背景图片大小也实现响应式 ？?--问题
+--原网站优化：输入邮箱时校验是否为邮箱
+
+2. 难点：表单验证（规则的声明式验证rules+自定义验证validator，和点击提交时验证；）
+可继续搜索其他普通实现方式，并总结计入笔记
+
+3. 重点：表单数据收集 ()
+4. 表单提交 (POST请求，携带请求体参数)
+--后台处理POST请求有问题，待修复；暂时先使用GET请求，并且可以实现校验的功能
+5. 前后台交互：
+API文档（平台接口+应用接口）
+容联云通讯平台短信发送接口
+postman工具测试接口（需下载）
+ajax/axios网络请求模块封装,后台返回的是JSON数据
+跨域请求处理方式
+优化：async/await优化请求模块，以同步编码方式实现异步流程，不再使用then来解析！--注意catch捕获异常
+优化：异常的统一处理：在封装请求模块时即进行捕获，新建Promise对象，使用antd的message.error来获取
+登录请求成功：message.success，然后跳转到管理界面：this.props.history.replace()
+重难点：维持用户登录与自动登录的实现：localStorage方式 -- 放在untils中
+-->
+
+
+
 
 ## Available Scripts
 
