@@ -3,7 +3,7 @@ var mongoose=require("mongoose");
 var Schema=mongoose.Schema
 
 // 连接数据库，必须保证mongodb服务已启动
-mongoose.connect('mongodb://localhost:27017/users',{useNewUrlParser:true,useUnifiedTopology:true});
+mongoose.connect('mongodb://localhost:27017/hrusers',{useNewUrlParser:true,useUnifiedTopology:true});
 
 // mongoose.connection.one("open",function(){}); //监听建立连接状态
 // mongoose.connection.one("close",function(){}); //监听断开连接状态
