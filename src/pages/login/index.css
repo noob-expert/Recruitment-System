@@ -1,0 +1,64 @@
+.login-index{
+    width: 100%;
+    height: 100%;
+    background-color: #F0F0F0;
+    background-size: 100% 100%;
+    background-image: url("./images/login-angle.png");
+    position: relative;
+}
+
+.login-index img{
+    position: absolute;
+    width:7.5rem;
+    height:2.5rem;
+    left:2.25rem;
+    top:1.5rem
+}
+
+.header{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width:36rem;
+    height:21rem;
+    font-size:0.8rem;
+    background-image: url("./images/login-sm.png");
+    background-position: -160% 20%;
+    /* 如何使该背景图片大小也实现响应式 ？*/
+    background-repeat: no-repeat; 
+    background-color: rgb(255,255,255);
+    box-shadow: rgba(112,112,112,0.2);
+    box-sizing: border-box;
+    /* 设置padding */
+    padding:3.5rem 3.5rem 2rem 19.5rem
+}
+.header input{
+    font-size: 0.8rem;
+}
+.header h2{
+    margin-bottom:2rem;
+}
+
+
+
+
+footer{
+    width:100%;
+    background-color: #FBFBFB;
+    text-align: center;
+    position: absolute;
+    bottom:0;
+    /* 设置弹性盒后，line-height就不管用了，因为每个元素都是display:inline-block了 */
+    line-height: 1rem;
+    font-size:0.75rem;
+    color:#C1BBC9;
+    display: flex;
+    justify-content: space-around;
+} 
+footer p{
+    margin:0
+}
+footer a{
+    color:#C1BBC9;
+}
