@@ -1,0 +1,29 @@
+.publicJob {
+  width: 100%;
+  font-size: 0.7rem;
+}
+.publicJob .depart {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: white ;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.publicJob .depart .left,
+.publicJob .depart .right {
+  flex: 1;
+}
+.publicJob .depart .center {
+  flex: 5;
+  display: flex;
+}
+.publicJob .section {
+  width: 100%;
+  background-color: white;
+}
+.publicJob .section tr th,
+.publicJob .section tr td {
+  padding: 0.5rem;
+}

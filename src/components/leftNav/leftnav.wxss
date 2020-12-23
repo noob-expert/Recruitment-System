@@ -1,0 +1,27 @@
+.footer {
+  font-size: 0.7rem;
+  padding: 4rem 0;
+  color: white;
+  position: relative;
+}
+.footer img {
+  position: absolute;
+  width: 5rem;
+  height: 1.5rem;
+  top: 1rem;
+  left: 0.5rem;
+}
+.footer .title {
+  width: 100%;
+  background-color: #264AB4;
+}
+.footer .title div {
+  text-align: center;
+  margin: 0.5rem 0;
+}
+.footer .title > div:not(.showonly):hover {
+  background-color: #6881CB !important;
+}
+.footer .showonly > div:hover {
+  background-color: #68cb70 !important;
+}

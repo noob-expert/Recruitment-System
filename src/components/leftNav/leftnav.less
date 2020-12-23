@@ -1,0 +1,30 @@
+.footer{
+    font-size: 0.7rem;
+    padding: 4rem 0;
+    color: white;
+    position: relative;
+    // 定义logo样式
+    img{
+        position: absolute;
+        width: 5rem;
+        height: 1.5rem;
+        top: 1rem;
+        left: 0.5rem;
+    }
+    // 定义title样式
+    .title{
+        width:100%;
+        background-color: #264AB4;
+        // padding:0.25rem 0;
+        div{
+            text-align: center;
+            margin:0.5rem 0
+        }
+        &>div:not(.showonly):hover{
+            background-color:#6881CB !important
+        }
+    }
+    .showonly>div:hover{
+         background-color:#68cb70 !important
+    }
+}
