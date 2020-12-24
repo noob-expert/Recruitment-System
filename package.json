@@ -11,6 +11,7 @@
     "craco-less": "^1.17.1",
     "customize-cra": "^1.0.0",
     "express": "^4.17.1",
+    "jsonp": "^0.2.1",
     "less": "^4.0.0",
     "less-loader": "^7.1.0",
     "mongoose": "^5.11.8",
@@ -28,7 +29,13 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules":{
+      "no-undef":"off",
+      "no-restriected-globals":"off",
+      "no-unused-vars":"off",
+      "no-script-url":"off"
+    }
   },
   "browserslist": {
     "production": [

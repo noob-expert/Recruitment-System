@@ -9,7 +9,7 @@ var user=require("./mongoose")
 console.log("connect db success");
 // 新增数据并实例化，验证成功
 // new user({
-//     username:"admin@fiberhome.com",
+//     username:"admin",
 //     password:"admin"
 // })
 // .save((err)=>{

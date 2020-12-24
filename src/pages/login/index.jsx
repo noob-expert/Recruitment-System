@@ -7,6 +7,9 @@ import { Form, Input, Button, Checkbox, message } from "antd";
 // react中img引入logo图片方式，不可以直接在jsx中相对路径引入
 import logo from "./images/fh.jpg";
 
+// 引入本地存储方法
+import methods from "../../utils/storageUtils"
+
 // 引入表单
 import { Login } from "../../network/index"
 
@@ -20,6 +23,9 @@ export default class login extends Component {
         } else {
             // 跳转页面
             message.success("登录成功")
+            // console.log(methods.saveUser);
+            methods.saveUser(username);
+            methods.getUser();
             this.props.history.replace('/')
         }
     };
@@ -45,13 +51,8 @@ export default class login extends Component {
                             rules={[
                                 { required: true, message: '请输入邮箱' },
                                 {
-                                    type: 'email',
-                                    message: '这不是一个有效的邮箱',
-                                    
-                                },
-                                {
                                     // 正则表达式判断
-                                    pattern: /^[a-zA-Z0-9@.]*$/, message: "请输入合法字符"
+                                    pattern: /^[a-zA-Z0-9]*$/, message: "请输入邮箱用户名即可"
                                 }
                                 //  {
                                 //     min: 4, message: "用户名至少4位"

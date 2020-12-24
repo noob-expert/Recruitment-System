@@ -61,7 +61,11 @@ ajax/axios网络请求模块封装,后台返回的是JSON数据
 --局部样式的实现（记录踩坑笔记）
 Vue中局部CSS样式通过scoped；
 在React中，(必须使用类选择器)，可以通过将css/less/scss等文件命名为xxx.module.css，然后引入时需要使用import styles(自定义) from "...scss'，使用时要这样写：className={styles.container}
-
+--左侧表单箭头，可以利用iconfont等图标，或伪元素的方式实现（写入踩坑笔记）
+-- 天气情况通过JSONP请求调用 ,时间通过格式化日期调用，同时在生命周期函数中，动态显示事件，天气与方法
+-- Vue和React中禁止eslint方法（写入踩坑笔记）
+-- 退出登录功能，借助antd里的modal组件函数，点击OK后依次清除数据并跳转（this问题)；注意：要在卸载生命周期时清除定时器函数
+-- JS如何判断对象为空问题
 2. 路由设计和默认界面设置（Redirect To）
 3. 重难点：菜单列表的动态设计。封装到数组中，通过map遍历和递归调用
  -->
