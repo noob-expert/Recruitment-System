@@ -3,8 +3,9 @@
   padding: 4rem 0;
   color: white;
   position: relative;
+  height: 30rem;
 }
-.footer img {
+.footer .logo {
   position: absolute;
   width: 5rem;
   height: 1.5rem;
@@ -18,10 +19,41 @@
 .footer .title div {
   text-align: center;
   margin: 0.5rem 0;
+  position: relative;
 }
 .footer .title > div:not(.showonly):hover {
   background-color: #6881CB !important;
 }
+.footer .title .profile::after {
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  border-top: 0.3rem solid white;
+  border-right: 0.3rem solid transparent;
+  border-bottom: 0.3rem solid transparent;
+  border-left: 0.3rem solid transparent;
+}
 .footer .showonly > div:hover {
   background-color: #68cb70 !important;
+}
+.footer .user {
+  position: absolute;
+  bottom: 0;
+  padding: 0.2rem;
+  text-align: center;
+  color: white;
+}
+.footer .user .user-top {
+  margin-bottom: 0.3rem;
+}
+.footer .user .user-top span {
+  margin-right: 0.2rem;
+}
+.footer .user .user-top a:hover {
+  color: red !important;
+}
+.footer .user .user-bottom {
+  font-size: 0.6rem;
+  color: #744eb1;
 }
