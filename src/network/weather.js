@@ -1,5 +1,4 @@
-// 此模板仅仅作为jsonp方法示例使用，实际上url已无法访问
-
+// 此文件仅仅作为jsonp方法示例使用，实际上url已无法访问
 
 import jsonp from "jsonp"
 import {message} from "antd"

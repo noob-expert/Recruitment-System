@@ -65,9 +65,15 @@ Vue中局部CSS样式通过scoped；
 -- 天气情况通过JSONP请求调用 ,时间通过格式化日期调用，同时在生命周期函数中，动态显示事件，天气与方法
 -- Vue和React中禁止eslint方法（写入踩坑笔记）
 -- 退出登录功能，借助antd里的modal组件函数，点击OK后依次清除数据并跳转（this问题)；注意：要在卸载生命周期时清除定时器函数
--- JS如何判断对象为空问题
+-- JS如何判断对象为空问题???
 2. 路由设计和默认界面设置（Redirect To）
-3. 重难点：菜单列表的动态设计。封装到数组中，通过map遍历和递归调用
+3. 重难点：菜单列表的动态设计。封装到数组中，通过map遍历和递归调用（我的项目组没有用到）
+4. 内部招聘和内部推荐界面设计
+-- 在实现职位获取的前后端交互时, 遍历职位列表时，forEach无返回值不能设置return，map有返回值可以设置return(写入踩坑笔记)
+5. 职位管理界面设计
+-- 在jsx中遍历绑定事件时，应该采用 （写入踩坑笔记）
+<td><button onClick={()=>this.recommdsDelete(item._id)}>删除</button></td>
+而不是 <td><button onClick={this.recommdsDelete(item._id)}>删除</button></td> --会被直接调用
  -->
 
 
