@@ -1,5 +1,3 @@
-// 此文件处仅仅用来做整理
-
 // mongoos模块，模型创建与发布
 var mongoose=require("mongoose");
 var Schema=mongoose.Schema
@@ -31,33 +29,6 @@ var userSchema= new Schema({
         }
     });
 
-// 设计工作职位表结构
-var jobSchema=new Schema({
-    depart:{
-        type:String,
-        required:true
-    },
-    position:{
-        type:String,
-        required:true
-    },
-    salary:{
-        type:String,
-        default:"面议"
-    },
-    address:{
-        type:String,
-        required:true,
-        default:"武汉市"
-    },
-    date:{
-        type:Date,
-        required:true
-    }
-})
-
-
 
 // 将文档结构发布为模型，通过Schema来创建Model
 module.exports=mongoose.model("User",userSchema)
-module.exports=mongoose.model("Jobs",jobSchema)

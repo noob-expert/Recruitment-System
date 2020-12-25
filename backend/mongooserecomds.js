@@ -1,5 +1,3 @@
-// 此文件处仅仅用来做整理
-
 // mongoos模块，模型创建与发布
 var mongoose=require("mongoose");
 var Schema=mongoose.Schema
@@ -11,28 +9,9 @@ mongoose.connect('mongodb://localhost:27017/hrusers',{useNewUrlParser:true,useUn
 // mongoose.connection.one("close",function(){}); //监听断开连接状态
 
 // 设计用户表结构
-var userSchema= new Schema({
-       username:{
-            type:String,
-            required:true
-        },
-        password:{
-            type:String,
-            required:true
-        },
-        gender:{
-            type:Number,
-            enum:[0,1],
-            default:0
-        },
-        date:{
-            type:Date,
-            default:Date.now
-        }
-    });
 
 // 设计工作职位表结构
-var jobSchema=new Schema({
+var recomdsSchema=new Schema({
     depart:{
         type:String,
         required:true
@@ -52,12 +31,12 @@ var jobSchema=new Schema({
     },
     date:{
         type:Date,
-        required:true
+        required:true,
+        default:Date.now
     }
 })
 
 
 
 // 将文档结构发布为模型，通过Schema来创建Model
-module.exports=mongoose.model("User",userSchema)
-module.exports=mongoose.model("Jobs",jobSchema)
+module.exports=mongoose.model("Recomds",recomdsSchema)
