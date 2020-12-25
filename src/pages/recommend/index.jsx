@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import ContentBg from "../../components/content/contentbg/contentbg"
 
 // 引入公共组件
-import PublicJob from "../../components/content/publicjob/PublicJob"
+import PublicRecomds from "../../components/content/publicrecomd/PublicRecomd"
 
 
 export default class Recommend extends Component {
@@ -11,7 +11,7 @@ export default class Recommend extends Component {
         return (
             <div>
                 <ContentBg />
-                <PublicJob />
+                <PublicRecomds />
             </div>
         )
     }

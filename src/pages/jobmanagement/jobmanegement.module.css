@@ -1,0 +1,25 @@
+.allJobs {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 2rem;
+  background-color: white;
+  font-size: 0.8rem;
+}
+.allJobs table {
+  width: 60%;
+}
+.allJobs table tr,
+.allJobs table th,
+.allJobs table td {
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.allJobs h2 {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+form {
+  margin: 1rem 0;
+}
