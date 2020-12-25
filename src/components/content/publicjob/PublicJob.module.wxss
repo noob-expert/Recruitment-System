@@ -15,6 +15,10 @@
 .publicJob .depart .right {
   flex: 1;
 }
+.publicJob .depart .right {
+  text-align: right;
+  padding: 0 0.4rem 0 0;
+}
 .publicJob .depart .center {
   flex: 5;
   display: flex;

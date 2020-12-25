@@ -4,24 +4,24 @@ import React, { Component } from 'react'
 import styles from "./PublicJob.module.css"
 
 // 引入职位请求模块
-import { Jobs } from "../../../network/index"
+import { Recomds } from "../../../network/index"
 
 export default class PublicJob extends Component {
 
     state = {
-        jobs: []
+        recomds: []
     }
 
     componentDidMount() {
-        Jobs().then(res => {
-            const jobs = res.data;
-            this.setState({ jobs })
+        Recomds().then(res => {
+            const recomds = res.data;
+            this.setState({ recomds })
         })
     }
 
     render() {
-        const { jobs } = this.state
-        console.log(jobs);
+        const { recomds } = this.state
+        console.log(recomds);
         // const jobsDepart = []
         // const arr=[{depart:'ws'},{depart:'qs'},{depart:'wes'},{depart:'wds'}]
         return (
@@ -30,8 +30,10 @@ export default class PublicJob extends Component {
                     <div className={styles.left}>所属机构</div>
                     <div className={styles.center}>
                         {/* {jobsDepart} */}
-                        {jobs.map((element, index) => {
-                            return <p key={index}>{element.depart}</p>
+                        {recomds.map((element, index) => {
+                            return <p key={index}>{
+                                element.depart
+                                }</p>
                         })}
                     </div>
                     <div className={styles.right}>展开</div>
@@ -47,7 +49,7 @@ export default class PublicJob extends Component {
                             <th>操作</th>
                         </tr>
                         {
-                            jobs.map((item, index) => {
+                            recomds.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <td><a href="JavaScript:;">{item.position}</a> </td>
@@ -55,7 +57,7 @@ export default class PublicJob extends Component {
                                         <td>{item.depart}</td>
                                         <td>{item.address}</td>
                                         <td>{item.date}</td>
-                                        <td><button>我要投递</button></td>
+                                        <td><button>我要推荐</button></td>
                                     </tr>
                                 )
                             })
