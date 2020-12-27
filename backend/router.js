@@ -102,10 +102,10 @@ router.get("/jobsDelete", (req, res) => {
     // 查找并返回所有jobs数据;
     jobs.findByIdAndDelete({ _id: id }, (err, result) => {
         if (err) {
-            console.log("delete error");
+            console.log("delete jobs error");
             res.send("failed")
         } else {
-            console.log("12345");
+            console.log("delete jobs okay");
             res.send("delete okay")
         }
     })
@@ -144,7 +144,7 @@ router.get("/recomdsAdd", (req, res) => {
         if(err){
             console.log("add recomds failed");
         }else{
-            console.log("123");
+            console.log("add recommds success");
             res.send("Add Recommds OK")
         }
     })

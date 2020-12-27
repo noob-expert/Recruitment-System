@@ -5,7 +5,7 @@ import axios from "axios"
 export function request(config){
     const instance=axios.create({
         baseURL:"http://localhost:3001/",
-        // timeout:5000
+        // timeout:5000  开启后职位管理界面会卡死？
     })
     // instance(config)本身就是一个promise，所以直接return返回它即可
     return instance(config)

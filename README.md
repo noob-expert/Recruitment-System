@@ -70,10 +70,17 @@ Vue中局部CSS样式通过scoped；
 3. 重难点：菜单列表的动态设计。封装到数组中，通过map遍历和递归调用（我的项目组没有用到）
 4. 内部招聘和内部推荐界面设计
 -- 在实现职位获取的前后端交互时, 遍历职位列表时，forEach无返回值不能设置return，map有返回值可以设置return(写入踩坑笔记)
+-- 关于分页效果等，可利用ant-d UI组件库的table组件来实现--研究下，可以2个界面分别为手动和ant-d
+-- table组件真香！！！！！！！ 另外，修改内部.ant-table的样式方法（写入踩坑笔记）
 5. 职位管理界面设计
 -- 在jsx中遍历绑定事件时，应该采用 （写入踩坑笔记）
-<td><button onClick={()=>this.recommdsDelete(item._id)}>删除</button></td>
-而不是 <td><button onClick={this.recommdsDelete(item._id)}>删除</button></td> --会被直接调用
+如何向事件回调函数中传递参数？？？：先定义一个匿名函数，在函数中调用处理的函数并传入数据
+<td><button onClick={()=>this.recommdsDelete(item._id)}>删除</button></td> 
+而不是 <td><button onClick={this.recommdsDelete(item._id)}>删除</button></td> --渲染时会被直接调用
+-- 受控组件与非受控组件的2种实现方式，不错
+-- 添加和修改界面的实现，利用modal组件，visiable设置为1个值即可
+--遗留问题：每次点击新增、删除等时的页面刷新问题，和滚动区域问题，样式问题（待解决后写入踩坑笔记）
+-- 遗留问题：// timeout:5000  开启后职位管理界面会卡死？
  -->
 
 
