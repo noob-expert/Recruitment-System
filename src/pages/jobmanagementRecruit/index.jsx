@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import styles from "./jobmanegement.module.css"
 
 // 引入职位请求和删除函数1
-import { Jobs, Recomds, JobsDelete, RecomdsDelete, RecomdsAdd, JobsAdd } from "../../network/index"
+import { Jobs, JobsDelete, JobsAdd } from "../../network/index"
 
 export default class JobManagement extends Component {
     // 状态管理
     state = {
-        recommds: [],
         jobs: [],
         depart: '',
         position: '',
@@ -17,30 +16,36 @@ export default class JobManagement extends Component {
         address: ''
     }
 
-    // 生命周期函数中引入
-    componentWillMount() {
-        Recomds().then((results) => {
-            const recommds = results.data;
-            this.setState({ recommds })
-        })
+    // 重新渲染函数
+    rerender = () => {
         Jobs().then((results) => {
             const jobs = results.data;
             this.setState({ jobs })
         })
     }
 
+    // 生命周期函数中引入
+    componentDidMount() {
+        this.rerender()
+    }
+
+    // 生命周期函数中定义每次更新时重新渲染
+    // componentDidUpdate(){
+    //     Recomds().then((results) => {
+    //         const recommds = results.data;
+    //         this.setState({ recommds })
+    //     })
+    //     Jobs().then((results) => {
+    //         const jobs = results.data;
+    //         this.setState({ jobs })
+    //     })
+    // }
+
     // 定义推荐职位删除
     recommdsDelete = (id) => {
         RecomdsDelete(id).then(result => {
             console.log(result)
-            Recomds().then((results) => {
-                const recommds = results.data;
-                this.setState({ recommds })
-            })
-            Jobs().then((results) => {
-                const jobs = results.data;
-                this.setState({ jobs })
-            })
+            this.rerender()
         })
     }
 
@@ -52,8 +57,9 @@ export default class JobManagement extends Component {
         // console.log(this.depart.value)
         const depart = this.depart.value;
         const position = this.position.value;
-        const salary = this.salary.value;
-        const address = this.address.value
+        // 优化，如果未输入值则将undefined传入，使用默认参数（salary="面议",address="武汉"）
+        const salary = this.salary.value ? this.salary.value : undefined;
+        const address = this.address.value ? this.address.value : undefined
         console.log(typeof depart, position, salary, address)
         // 执行新增操作
         RecomdsAdd(depart, position, salary, address).then(res => {
@@ -64,14 +70,7 @@ export default class JobManagement extends Component {
             this.salary.value = ''
             this.address.value = ''
             // 重新渲染
-            Recomds().then((results) => {
-                const recommds = results.data;
-                this.setState({ recommds })
-            })
-            Jobs().then((results) => {
-                const jobs = results.data;
-                this.setState({ jobs })
-            })
+            this.rerender()
         }, err => {
             console.log(err)
         })
@@ -104,26 +103,19 @@ export default class JobManagement extends Component {
         // 阻止默认提交行为
         event.preventDefault()
         // 获取受控表单的输入值
-        const {depart,position,salary,address}=this.state;
-        console.log(depart,position,salary,address)
+        const { depart, position, salary, address } = this.state;
+        console.log(depart, position, salary, address)
         // 调用招聘职位新增请求更改
         JobsAdd(depart, position, salary, address).then(res => {
             // 重置输入
             this.setState({
-                depart:'',
-                position:'',
-                salary:'',
-                address:''
+                depart: '',
+                position: '',
+                salary: '',
+                address: ''
             })
             // 重新渲染JOBS.RECOMMDS
-            Recomds().then((results) => {
-                const recommds = results.data;
-                this.setState({ recommds })
-            })
-            Jobs().then((results) => {
-                const jobs = results.data;
-                this.setState({ jobs })
-            })
+            this.rerender()
         }, err => {
             console.log(err)
         })
@@ -133,59 +125,18 @@ export default class JobManagement extends Component {
     jobsDelete = (id) => {
         JobsDelete(id).then(result => {
             console.log(result)
-            Recomds().then((results) => {
-                const recommds = results.data;
-                this.setState({ recommds })
-            })
-            Jobs().then((results) => {
-                const jobs = results.data;
-                this.setState({ jobs })
-            })
+            this.rerender()
         })
     }
 
     render() {
-        const { recommds, jobs } = this.state
+        const { jobs } = this.state
 
         // 设置受控表单的值
         const { depart, position, salary, address } = this.state;
 
         return (
             <div className={styles.allJobs}>
-                <div className={styles.recommds}>
-                    <h2>内部推荐职位管理</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>职位</th>
-                                <th>机构</th>
-                                <th>发布时间</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                recommds.map((item, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{item.position}</td>
-                                            <td>{item.depart}</td>
-                                            <td>{item.date}</td>
-                                            <td><input type="submit" onClick={() => this.recommdsDelete(item._id)} value="删除" /></td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <form action="/RecommdsAdd" onSubmit={this.recommdsAddHandle}>
-                    机构:<input type="text" ref={input => { this.depart = input }} /><br />
-                                职位:<input type="text" ref={input => { this.position = input }} /><br />
-                                薪水:<input type="text" ref={input => { this.salary = input }} /><br />
-                                工作地点:<input type="text" ref={input => { this.address = input }} /><br />
-                    <input type="submit" value="新增" />
-                </form>
                 <div className={styles.jobs}>
                     <h2>内部招聘职位管理</h2>
                     <table>
@@ -210,7 +161,6 @@ export default class JobManagement extends Component {
                                     )
                                 })
                             }
-                            {/* <button>新增</button> */}
                         </tbody>
                     </table>
                 </div>
