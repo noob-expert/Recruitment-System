@@ -3,8 +3,13 @@ import React, { Component } from 'react'
 // 引入CSS样式
 import styles from "./PublicJob.module.css"
 
+import "./iii.css"
+
 // 引入职位请求模块
 import { Recomds } from "../../../network/index"
+
+// 引入antd表单组件table
+import { Table } from 'antd';
 
 export default class PublicJob extends Component {
 
@@ -19,9 +24,47 @@ export default class PublicJob extends Component {
         })
     }
 
+
+
     render() {
         const { recomds } = this.state
         console.log(recomds);
+
+        const columns = [
+            {
+                title: '职位',
+                dataIndex: 'position',
+                key: 'position',
+                render: text => <a>{text}</a>,
+            },
+            {
+                title: '薪资',
+                dataIndex: 'salary',
+                key: 'salary',
+            },
+            {
+                title: '机构',
+                dataIndex: 'depart',
+                key: 'depart',
+            },
+            {
+                title: '工作地点',
+                key: 'address',
+                dataIndex: 'address'
+            },
+            {
+                title: '发布时间',
+                key: 'date',
+                dataIndex: 'date'
+            },
+            {
+                title: '操作',
+                key: 'action',
+                render: () => (
+                    <button>我要推荐</button>
+                ),
+            },
+        ];
         // const jobsDepart = []
         // const arr=[{depart:'ws'},{depart:'qs'},{depart:'wes'},{depart:'wds'}]
         return (
@@ -33,12 +76,26 @@ export default class PublicJob extends Component {
                         {recomds.map((element, index) => {
                             return <p key={index}>{
                                 element.depart
-                                }</p>
+                            }</p>
                         })}
                     </div>
                     <div className={styles.right}>展开</div>
                 </div>
-                <table className={styles.section}>
+
+                <Table
+                    className={styles.section}
+                    columns={columns} dataSource={recomds}
+                    pagination={
+                        {
+                            defaultCurrent: 1,
+                            defaultPageSize: 7
+                        }
+                    }
+                />
+
+                {
+                // 手撕的代码。。。
+                /* <table className={styles.section}>
                     <tbody>
                         <tr>
                             <th>职位</th>
@@ -63,7 +120,7 @@ export default class PublicJob extends Component {
                             })
                         }
                     </tbody>
-                </table>
+                </table> */}
             </div>
         )
     }

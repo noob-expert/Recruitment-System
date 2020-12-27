@@ -23,6 +23,7 @@ let Interval
 class LeftNav extends Component {
     state = {
         show: true,
+        showJob:true,
         currentUser: '',
         currentTime: ''
     }
@@ -33,6 +34,12 @@ class LeftNav extends Component {
         this.setState({ show })
     }
 
+    jobManageClick=()=>{
+        let { showJob } = this.state;
+        showJob=!showJob
+        this.setState({showJob})
+
+    }
 
     handlexitClick = (event) => {
          // 去掉默认行为
@@ -81,8 +88,9 @@ class LeftNav extends Component {
     }
 
     render() {
-        const { show } = this.state
+        const { show,showJob } = this.state
         const display = show ? "none" : "block"
+        const display2 =showJob?"none":"block"
         const { currentUser,currentTime} = this.state
         return (
             <div>
@@ -99,7 +107,12 @@ class LeftNav extends Component {
                         </div>
                         <div><Link style={{ color: 'white' }} to="/user">用户管理</Link></div>
                         <div><Link style={{ color: 'white' }} to="/role">角色管理</Link></div>
-                        <div><Link style={{ color: 'white' }} to="/job">职位管理</Link></div>
+                        {/* <div><Link style={{ color: 'white' }} to="/job">职位管理</Link></div> */}
+                        <div className="jobs" onClick={this.jobManageClick}>职位管理</div>
+                        <div className="showJobs" style={{display:display2}} >
+                            <div><Link style={{color:"white"}} to="/jobRecom">内部推荐职位</Link></div>
+                            <div><Link style={{color:"white"}} to="/jobRecruit">内部招聘职位</Link></div>
+                        </div>
                     </div>
                     <div className="user">
                         <div className="user-top">

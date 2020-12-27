@@ -11,7 +11,8 @@ import RecordRecom from "../../pages/recordrecom"
 import RecordRecru from "../../pages/recordrecru"
 import UserManagement from "../../pages/usermanagement"
 import RoleManagement from "../../pages/rolemanagement"
-import JobManagement from "../../pages/jobmanagement"
+import RecommendJobManagement from "../../pages/jobmanagementRecomd"
+import RecruitJobManagement from "../../pages/jobmanagementRecruit"
 
 // 引入css样式
 import "./content.less"
@@ -29,7 +30,8 @@ export default class Content extends Component {
                     <Route path="/RecordRecru" component={RecordRecru}></Route>
                     <Route path="/User" component={UserManagement}></Route>
                     <Route path="/Role" component={RoleManagement}></Route>
-                    <Route path="/job" component={JobManagement}></Route>
+                    <Route path="/jobRecom" component={RecommendJobManagement}></Route>
+                    <Route path="/jobRecruit" component={RecruitJobManagement}></Route>
                     <Redirect to="/Recommend" />
                 </Switch>
             </div>

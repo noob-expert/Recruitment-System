@@ -1,0 +1,5 @@
+/* 修改table表单的ant-table样式 */
+
+.ant-table{
+    font-size: 0.7rem !important;
+}

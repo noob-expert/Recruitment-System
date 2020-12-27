@@ -6,6 +6,9 @@ import styles from "./PublicJob.module.css"
 // 引入职位请求模块
 import { Jobs } from "../../../network/index"
 
+// 引入antd表单组件table
+import { Table } from 'antd';
+
 export default class PublicJob extends Component {
 
     state = {
@@ -19,13 +22,51 @@ export default class PublicJob extends Component {
         })
     }
 
+
+
     render() {
         const { jobs } = this.state
         console.log(jobs);
         // const jobsDepart = []
         // const arr=[{depart:'ws'},{depart:'qs'},{depart:'wes'},{depart:'wds'}]
+        const columns = [
+            {
+                title: '职位',
+                dataIndex: 'position',
+                key: 'position',
+                render: text => <a>{text}</a>,
+            },
+            {
+                title: '薪资',
+                dataIndex: 'salary',
+                key: 'salary',
+            },
+            {
+                title: '机构',
+                dataIndex: 'depart',
+                key: 'depart',
+            },
+            {
+                title: '工作地点',
+                key: 'address',
+                dataIndex: 'address'
+            },
+            {
+                title: '发布时间',
+                key: 'date',
+                dataIndex: 'date'
+            },
+            {
+                title: '操作',
+                key: 'action',
+                render: () => (
+                    <button>我要投递</button>
+                ),
+            },
+        ];
         return (
             <div className={styles.publicJob}>
+
                 <div className={styles.depart}>
                     <div className={styles.left}>所属机构</div>
                     <div className={styles.center}>
@@ -36,7 +77,18 @@ export default class PublicJob extends Component {
                     </div>
                     <div className={styles.right}>展开</div>
                 </div>
-                <table className={styles.section}>
+                <Table columns={columns} dataSource={jobs}
+                    pagination={
+                        {
+                            defaultCurrent: 1,
+                            defaultPageSize: 7
+                        }
+                    }
+                />
+                {/* <Pagination defaultPageSize='1' /> */}
+                {
+                    // 手撕写法。。。
+                /* <table className={styles.section}>
                     <tbody>
                         <tr>
                             <th>职位</th>
@@ -61,7 +113,7 @@ export default class PublicJob extends Component {
                             })
                         }
                     </tbody>
-                </table>
+                </table> */}
             </div>
         )
     }

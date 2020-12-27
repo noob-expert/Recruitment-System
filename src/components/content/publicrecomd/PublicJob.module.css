@@ -1,6 +1,8 @@
 .publicJob {
   width: 100%;
   font-size: 0.7rem;
+  height: 18rem;
+  overflow: scroll;
 }
 .publicJob .depart {
   width: 100%;

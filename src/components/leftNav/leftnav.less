@@ -22,7 +22,7 @@
             margin:0.5rem 0;
             position: relative;
         }
-        &>div:not(.showonly):hover{
+        &>div:not(.showonly,.showJobs):hover{
             background-color:#6881CB !important
         }
         .profile::after{
@@ -35,9 +35,22 @@
             border-bottom: 0.3rem solid transparent;
             border-left: 0.3rem solid transparent;
         }
+        .jobs::after{
+            content: '';
+            position: absolute;
+            top:0.4rem;
+            right:0.4rem;
+            border-top: 0.3rem solid white;
+            border-right: 0.3rem solid transparent;
+            border-bottom: 0.3rem solid transparent;
+            border-left: 0.3rem solid transparent;
+        }
     }
     .showonly>div:hover{
          background-color:#68cb70 !important
+    }
+    .showJobs>div:hover{
+        background-color:#68cb70 !important
     }
 
     // 定义用户和天气样式
