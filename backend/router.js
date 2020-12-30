@@ -8,7 +8,9 @@ var user = require("./mongooseuser")
 
 var jobs = require("./mongoosejobs")
 
-var recomds = require("./mongooserecomds")
+var recomds = require("./mongooserecomds");
+
+var role=require("./mongooserole")
 
 // 新增数据并实例化，验证成功
 // new user({
@@ -68,12 +70,31 @@ router.get("/jobs", (req, res) => {
     })
 })
 
+// 处理根据内部招聘部门返回招聘职位查询请求
+router.get("/jobsFindByDepart", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 接收传送过来的depart
+    const {depart}=req.query
+    // 查找并返回符合招聘部门的职位
+    jobs.find({depart},(err,results)=>{
+        if(err){
+            console.log("query Jobs by Depart error");
+            res.send("failed")
+        }else{
+            console.log("query Jobs by Depart success");
+            res.send(results)
+        }
+    })
+})
+
+
 // 处理新增内部招聘职位请求
 router.get("/jobsAdd", (req, res) => {
     // 处理跨域请求
     res.setHeader("Access-Control-Allow-Origin", "*")
     // 识别传过来的id值
-    const { depart,position,salary,address } = req.query
+    const { depart, position, salary, address } = req.query
     console.log(req.query);
     // 新增内部招聘职位
     new jobs({
@@ -81,10 +102,10 @@ router.get("/jobsAdd", (req, res) => {
         position,
         salary,
         address
-    }).save((err)=>{
-        if(err){
+    }).save((err) => {
+        if (err) {
             console.log(" add jobs failed");
-        }else{
+        } else {
             console.log("jobs add ok");
             res.send("Add Jobs OK")
         }
@@ -127,12 +148,30 @@ router.get("/recomds", (req, res) => {
     })
 })
 
+// 处理根据内部推荐部门返回推荐职位查询请求
+router.get("/recomdsFindByDepart", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 接收传送过来的depart
+    const {depart}=req.query
+    // 查找并返回符合招聘部门的职位
+    recomds.find({depart},(err,results)=>{
+        if(err){
+            console.log("query Recomds by Depart error");
+            res.send("failed")
+        }else{
+            console.log("query Recomds by Depart success");
+            res.send(results)
+        }
+    })
+})
+
 // 处理新增内部推荐职位请求
 router.get("/recomdsAdd", (req, res) => {
     // 处理跨域请求
     res.setHeader("Access-Control-Allow-Origin", "*")
     // 识别传过来的id值
-    const { depart,position,salary,address } = req.query
+    const { depart, position, salary, address } = req.query
     console.log(req.query);
     // 新增内部招聘职位
     new recomds({
@@ -140,10 +179,10 @@ router.get("/recomdsAdd", (req, res) => {
         position,
         salary,
         address
-    }).save((err)=>{
-        if(err){
+    }).save((err) => {
+        if (err) {
             console.log("add recomds failed");
-        }else{
+        } else {
             console.log("add recommds success");
             res.send("Add Recommds OK")
         }

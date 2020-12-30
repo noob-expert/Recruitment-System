@@ -6,14 +6,17 @@ import styles from "./jobmanegement.module.css"
 // 引入职位请求和删除函数1
 import { Jobs, JobsDelete, JobsAdd } from "../../network/index"
 
+
+import { message } from 'antd'
+
 export default class JobManagement extends Component {
     // 状态管理
     state = {
         jobs: [],
         depart: '',
         position: '',
-        salary: '',
-        address: ''
+        salary: undefined,
+        address: undefined
     }
 
     // 重新渲染函数
@@ -41,40 +44,6 @@ export default class JobManagement extends Component {
     //     })
     // }
 
-    // 定义推荐职位删除
-    recommdsDelete = (id) => {
-        RecomdsDelete(id).then(result => {
-            console.log(result)
-            this.rerender()
-        })
-    }
-
-    // 定义推荐职位新增
-    recommdsAddHandle = (event) => {
-        // 阻止默认提交行为
-        event.preventDefault();
-        // 获取不受控组件的输入值
-        // console.log(this.depart.value)
-        const depart = this.depart.value;
-        const position = this.position.value;
-        // 优化，如果未输入值则将undefined传入，使用默认参数（salary="面议",address="武汉"）
-        const salary = this.salary.value ? this.salary.value : undefined;
-        const address = this.address.value ? this.address.value : undefined
-        console.log(typeof depart, position, salary, address)
-        // 执行新增操作
-        RecomdsAdd(depart, position, salary, address).then(res => {
-            console.log(res);
-            // 重置输入
-            this.depart.value = ''
-            this.position.value = ''
-            this.salary.value = ''
-            this.address.value = ''
-            // 重新渲染
-            this.rerender()
-        }, err => {
-            console.log(err)
-        })
-    }
 
     // 设置招聘职位新增时受控表单的值更改
     handleDepart = (event) => {
@@ -89,12 +58,14 @@ export default class JobManagement extends Component {
     }
     handleSalary = (event) => {
         let { salary } = this.state;
-        salary = event.target.value;
+        // salary=event.target.value
+        salary = event.target.value
+        console.log(salary)
         this.setState({ salary });
     }
     handleAddress = (event) => {
         let { address } = this.state;
-        address = event.target.value;
+        address = event.target.value
         this.setState({ address });
     }
 
@@ -125,6 +96,7 @@ export default class JobManagement extends Component {
     jobsDelete = (id) => {
         JobsDelete(id).then(result => {
             console.log(result)
+            message.success("删除成功")
             this.rerender()
         })
     }

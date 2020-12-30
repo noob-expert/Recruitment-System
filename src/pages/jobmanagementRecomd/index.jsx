@@ -6,14 +6,15 @@ import styles from "./jobmanegement.module.css"
 // 引入职位请求和删除函数1
 import { Recomds, RecomdsDelete, RecomdsAdd } from "../../network/index"
 
+
+// 引入删除确认框
+import { message } from 'antd'
+
+
 export default class JobManagement extends Component {
     // 状态管理
     state = {
-        recommds: [],
-        depart: '',
-        position: '',
-        salary: '',
-        address: ''
+        recommds: []
     }
 
     // 重新渲染函数
@@ -45,6 +46,7 @@ export default class JobManagement extends Component {
     recommdsDelete = (id) => {
         RecomdsDelete(id).then(result => {
             console.log(result)
+            message.success("删除成功")
             this.rerender()
         })
     }
@@ -78,9 +80,6 @@ export default class JobManagement extends Component {
 
     render() {
         const { recommds } = this.state
-
-        // 设置受控表单的值
-        const { depart, position, salary, address } = this.state;
 
         return (
             <div className={styles.allJobs}>

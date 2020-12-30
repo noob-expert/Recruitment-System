@@ -30,9 +30,9 @@ var recomdsSchema=new Schema({
         default:"武汉市"
     },
     date:{
-        type:Date,
+        type:String,
         required:true,
-        default:Date.now
+        default:new Date(Date.now()).getFullYear()+'-'+(new Date(Date.now()).getMonth()+1)+"-"+new Date(Date.now()).getDate()
     }
 })
 

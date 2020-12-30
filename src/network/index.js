@@ -32,6 +32,17 @@ export function Jobs(){
     })
 }
 
+// 根据内部招聘部门请求内部招聘职位模块
+export function JobsFindByDepart(depart){
+    return request({
+        url:"/jobsFindByDepart",
+        method:"GET",
+        params:{
+            depart
+        }
+    })
+}
+
 // 内部招聘职位新增模块
 export function JobsAdd(depart,position,salary="面议",address="武汉市"){
     return request({
@@ -62,6 +73,17 @@ export function Recomds(){
     return request({
         url:"/recomds",
         method:"GET"
+    })
+}
+
+// 根据内部推荐部门请求内部推荐职位模块
+export function RecomdsFindByDepart(depart){
+    return request({
+        url:"/recomdsFindByDepart",
+        method:"GET",
+        params:{
+            depart
+        }
     })
 }
 
