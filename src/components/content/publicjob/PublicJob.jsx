@@ -4,29 +4,53 @@ import React, { Component } from 'react'
 import styles from "./PublicJob.module.css"
 
 // 引入职位请求模块
-import { Jobs } from "../../../network/index"
+import { Jobs, JobsFindByDepart } from "../../../network/index"
 
 // 引入antd表单组件table
 import { Table } from 'antd';
 
 export default class PublicJob extends Component {
-
+    
     state = {
         jobs: []
     }
 
-    componentDidMount() {
-        Jobs().then(res => {
-            const jobs = res.data;
-            this.setState({ jobs })
-        })
+    // 加载所有请求函数
+    JobsAll = async () => {
+        let jobs = await Jobs()
+        jobs = jobs.data
+        this.setState({ jobs })
     }
 
 
+    componentDidMount() {
+        this.JobsAll()
+    }
+
+    // 点击加载全部时的请求
+    showAllJobsClick = () => {
+        this.JobsAll()
+    }
+
+    // 点击所属机构时的数据显示
+    handleDepartClick = async (depart) => {
+        // 获取当前点击的机构名字
+        // console.log(depart)
+        // 在数据库中查找对应职位，并返回值，设置给state
+        const jobsFindDepart = await JobsFindByDepart(depart)
+        const jobs = jobsFindDepart.data
+        // 赋值给state
+        this.setState({ jobs })
+    }
+
+    // 展开所有部门的功能
+    showAllDepartsClick = () => {
+
+    }
 
     render() {
         const { jobs } = this.state
-        console.log(jobs);
+        // console.log(jobs);
         // const jobsDepart = []
         // const arr=[{depart:'ws'},{depart:'qs'},{depart:'wes'},{depart:'wds'}]
         const columns = [
@@ -64,18 +88,30 @@ export default class PublicJob extends Component {
                 ),
             },
         ];
+        let Depart = ["烽火通信", "网络产出线", "烽火超微", "宽带业务产出线", "线缆产出线", "成都大唐", "烽火海洋网络设备有限公司", "公共研发部", "微电子部", "国内销售部", "系统设备制造部", "云计算研发中心", "烽火网络", "烽火云创", "光谷智慧", "人力资源部", "科技与运营部", "战略与市场部", "烽火技服", "湖北楚天云", "南京烽火星空", "烽火集成"];
+        jobs.map((element) => {
+            Depart.push(element.depart)
+        })
+        let newDepart = [...new Set(Depart)]
         return (
             <div className={styles.publicJob}>
-
                 <div className={styles.depart}>
                     <div className={styles.left}>所属机构</div>
-                    <div className={styles.center}>
+                    <input type="checkbox" name='' value='' />
+                    <span>展开</span>
+                    <div className={styles.right}>
                         {/* {jobsDepart} */}
-                        {jobs.map((element, index) => {
-                            return <p key={index}>{element.depart}</p>
+                        <a href="javaScript:;" onClick={this.showAllJobsClick}>全部职位</a>
+                        {newDepart.map((element, index) => {
+                            return <a key={index} onClick={() => this.handleDepartClick(element)}>{element}</a>
                         })}
                     </div>
-                    <div className={styles.right}>展开</div>
+                    {/* <input type="checkbox" name='' value='' /> */}
+                    {/* <div className={styles.right}> */}
+                    {/* <input type="checkbox" name='' value='' />
+                    <span>展开</span> */}
+                    {/* </div> */}
+                   
                 </div>
                 <Table columns={columns} dataSource={jobs}
                     pagination={

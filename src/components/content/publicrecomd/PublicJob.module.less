@@ -1,7 +1,7 @@
 .publicJob{
     width:100%;
     font-size: 0.7rem;
-    height: 18rem;
+    height: 17rem;
     overflow: scroll;
     .depart{
         width: 100%;
@@ -11,31 +11,51 @@
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
-        .left,.right{
+
+        input{
+            width: 1rem;
+            height: 0.8rem;
+           &:checked ~ .right{
+                height: 100%;
+                // display: none;
+            }
+        }
+        .left{
             flex:1
         }
+        // .right{
+        //     text-align: right;
+        //     padding:0 1rem 0 0;
+        // }
+
         .right{
-            text-align: right;
-            padding:0 0.4rem 0 0;
-        }
-        .center{
             flex:5;
             display: flex;
             flex-wrap: wrap;
-            p{
-                margin:0 0.5rem
+            // border:1px solid red;
+            height: 1rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            a{
+                margin:0 0.5rem;
+               &:not(:first-child){
+                   color:black
+               }
             }
         }
-    }
-    .section{
-        width: 100%;
-        background-color: white;
-        tr{
-           th,td{
-               padding:0.5rem
-           }
-        }
+
+
 
 
     }
+    // .section{
+    //     width: 100%;
+    //     background-color: white;
+    //     tr{
+    //        th,td{
+    //            padding:0.5rem
+    //        }
+    //     }
+
+    // }
 }

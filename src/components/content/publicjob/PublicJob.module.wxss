@@ -1,7 +1,7 @@
 .publicJob {
   width: 100%;
   font-size: 0.7rem;
-  height: 18rem;
+  height: 17rem;
   overflow: scroll;
 }
 .publicJob .depart {
@@ -13,27 +13,27 @@
   justify-content: space-around;
   flex-wrap: wrap;
 }
-.publicJob .depart .left,
-.publicJob .depart .right {
+.publicJob .depart input {
+  width: 1rem;
+  height: 0.8rem;
+}
+.publicJob .depart input:checked ~ .right {
+  height: 100%;
+}
+.publicJob .depart .left {
   flex: 1;
 }
 .publicJob .depart .right {
-  text-align: right;
-  padding: 0 0.4rem 0 0;
-}
-.publicJob .depart .center {
   flex: 5;
   display: flex;
   flex-wrap: wrap;
+  height: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.publicJob .depart .center p {
+.publicJob .depart .right a {
   margin: 0 0.5rem;
 }
-.publicJob .section {
-  width: 100%;
-  background-color: white;
-}
-.publicJob .section tr th,
-.publicJob .section tr td {
-  padding: 0.5rem;
+.publicJob .depart .right a:not(:first-child) {
+  color: black;
 }
