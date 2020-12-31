@@ -1,0 +1,9 @@
+.addRole {
+  text-align: center;
+}
+.addRole h2 {
+  font-size: 0.8rem;
+}
+.addRole button {
+  margin-left: 0.5rem;
+}

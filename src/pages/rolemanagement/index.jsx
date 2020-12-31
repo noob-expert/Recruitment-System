@@ -4,11 +4,18 @@ import React, { Component, useState } from 'react'
 import Styles from "./roleManage.module.css"
 
 // 引入ant-design组件--card
-import { Card, Table, Modal } from "antd"
+import { Card, Table } from "antd"
 
 // 引入本地local Storage中的值和时间戳转化
 import LocalStorage from "../../utils/storageUtils"
 import { formatDate } from "../../utils/timestamp"
+
+// 引入axios请求组件
+import {QueryRole} from "../../network/index"
+
+// 引入子组件
+import AddRole from "./AddRole/addRole"
+import ModifyRole from "./ModifyRole/modifyRole"
 
 const columns = [
     {
@@ -48,22 +55,30 @@ const jobs = [
 export default class RoleManagement extends Component {
     // state样式
     state = {
-        selectedRowKeys: []
+        selectedRowKeys: [],
+        isAddRole:'none',
+        isModifyRole:'none',
+        roleTypes:[]
     }
 
-    // [isModalVisible, setIsModalVisible] = useState(false);
+    // 角色请求函数
+    QueryRole=async()=>{
+        const result=await QueryRole();
+        if(result.status==200){
+            // const {roleType,author,createTime}=result.data;
+            // console.log((roleType,author,createTime));
+            // console.log(result.data);
+            this.setState({
+                roleTypes:result.data
+            })
+        }
+    }
 
-    showModal = () => {
-        setIsModalVisible(true);
-    };
+    // 模块开始加载时执行
+    componentDidMount(){
+        this.QueryRole()
+    }
 
-    handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    handleCancel = () => {
-        setIsModalVisible(false);
-    };
 
     // 勾选表格框按钮时
     onSelectChange = (selectedRowKeys, selectedRows) => {
@@ -71,19 +86,40 @@ export default class RoleManagement extends Component {
         this.setState({ selectedRowKeys });
     };
 
+    // 点击创建角色按钮时
+    showAddRole=()=>{
+        this.setState({
+            isAddRole:"block"
+        })
+    }
+
     // 引入标题样式
     CardTitle = () => {
         return (
             <div>
-                <button type="primary" onClick={this.showModal}>创建角色</button> &nbsp;&nbsp;
-                <button type="primary" style={{ disable: true }}>设置角色权限</button>
+                <button onClick={this.showAddRole}>创建角色</button> &nbsp;&nbsp;
+                <button style={{ disable: true }}
+                onClick={this.showModifyRole}
+                >设置角色权限</button>
             </div>
         )
     }
 
     render() {
 
-        const { selectedRowKeys } = this.state;
+        const { selectedRowKeys,isAddRole,isModifyRole,roleTypes } = this.state;
+
+        const roles=[]
+
+        roleTypes.map((item,index)=>{
+            roles.push({
+                key:item._id,
+                roleType: item.roleType,
+                createTime: formatDate(item.createTime),
+                author: item.author,
+                menu:item.menu
+            })
+        })
 
         // 创建生成表格抬头样式
         // 选中选择框内容
@@ -94,7 +130,7 @@ export default class RoleManagement extends Component {
         return (
             <div className={Styles.card}>
                 <Card title={this.CardTitle()} bordered={false} style={{ width: '100%' }}>
-                    <Table columns={columns} dataSource={jobs}
+                    <Table columns={columns} dataSource={roles}
                         pagination={
                             {
                                 defaultCurrent: 1,
@@ -105,13 +141,8 @@ export default class RoleManagement extends Component {
                         type="radio"
                     />
                 </Card>
-
-                {/* 创建角色权限对话框 */}
-                <Modal title="Basic Modal"
-                visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                    <input type="text" placeholder="12345" />
-                    <p>1234</p>
-                </Modal>
+                <AddRole isAddRole={isAddRole}/>
+                <ModifyRole isModifyRole={isModifyRole} />
             </div>
         )
     }

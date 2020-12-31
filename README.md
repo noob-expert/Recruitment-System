@@ -88,6 +88,19 @@ Vue中局部CSS样式通过scoped；
 -- 添加和修改界面的实现，利用modal组件，visiable设置为1个值即可
 --遗留问题：每次点击新增、删除等时的页面刷新问题，和滚动区域问题，样式问题（待解决后写入踩坑笔记）
 -- 遗留问题：// timeout:5000  开启后职位管理界面会卡死？
+
+2. 角色管理界面设计
+--card 组件设计
+--在引入的子组件上，无法直接设置CSS样式？？？需要props传入display值？--（确认后计入踩坑笔记）
+-- 子组件中，props的值如何修改，readOnly??除了传递到state之外（写入踩坑笔记）
+-- 在使用react是，常常需要在一个组件传入的props更新时重新渲染该组件，常用的方法是在componentWillRecevieProps中将新的props更新到组件的state中（这种state被称为派生状态），从而实现重新渲染;
+componentWillReceiveProps(nextProps){
+    this.setState({
+        user:nextProps.user
+    })
+}
+--在子组件中点击新增属性后并成功后，重新调用父组件中的角色请求函数：采用事件发布和订阅方式（写入踩坑笔记）
+--点击单选框后，新增组件再次显示出来
  -->
 
 

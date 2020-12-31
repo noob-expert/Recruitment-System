@@ -111,3 +111,25 @@ export function RecomdsDelete(id){
         }
     })
 }
+
+// 角色信息查询模块queryRole
+export function QueryRole(){
+    return request({
+        url:"/queryRole",
+        method:"GET"
+    })
+}
+
+
+// 角色信息增加模块
+export function AddRole(roleType,author,menu=undefined){
+    return request({
+        url:"/addRole",
+        method:"GET",
+        params:{
+            roleType,
+            author,
+            menu
+        }
+    })
+}

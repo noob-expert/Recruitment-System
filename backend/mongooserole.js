@@ -20,12 +20,16 @@ var roleSchema = new Schema({
     },
     menu: {
         type: Array,
-        required: true,
         default: []
     },
     createTime: {
-        type: String,
-        default: new Date(Date.now()).getFullYear() + '-' + (new Date(Date.now()).getMonth() + 1) + "-" + new Date(Date.now()).getDate()
+        type: Number,
+        default:Date.now()
+        // default: new Date(Date.now()).getFullYear() + '-' + (new Date(Date.now()).getMonth() + 1) + "-" + new Date(Date.now()).getDate()
+    },
+    author:{
+        type:String,
+        default:"admin"
     }
 });
 

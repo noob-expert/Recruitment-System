@@ -1,6 +1,8 @@
 .card {
   width: 50rem;
   margin-top: 2rem;
+  background-color: white;
+  font-size: 0.7rem;
 }
 .card button {
   background-color: #264AB4;

@@ -210,6 +210,65 @@ router.get("/recomdsDelete", (req, res) => {
     })
 })
 
+// 处理用户角色查询请求
+router.get("/queryRole",(req,res)=>{
+   // 处理跨域请求
+res.setHeader("Access-Control-Allow-Origin", "*")
+// 查询用户角色 
+role.find((err,result)=>{
+    if(err){
+        console.log("query role falied");
+        res.send('query role failed')
+    }else{
+        console.log("query role success");
+        res.send(result)
+    }
+})
+})
+
+// 处理用户角色新增保存请求
+router.get("/addRole",(req,res)=>{
+// 处理跨域请求
+res.setHeader("Access-Control-Allow-Origin", "*")
+// 获取req请求值内容并保存
+console.log(req.query);
+const {roleType,menu,author}=req.query
+new role({
+    roleType,
+    menu,
+    author
+}).save((err)=>{
+    if(err){
+        console.log("add Role failed");
+        res.send("add role failed")
+    }else{
+        console.log("add Role success");
+        res.send("add role success")
+    }
+})
+})
+
+// 处理用户角色权限新增提交请求
+router.get("/modifyRole",(req,res)=>{
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取req请求值内容并保存
+    console.log(req.query);
+    const {menu,_id}=req.query;
+    role.findByIdAndUpdate(_id,{menu:menu},(err,result)=>{
+            if (err) {
+                console.log("modify roleType error");
+                res.send("modifle roleType failed")
+            } else {
+                console.log("modify roleType success");
+                res.send("modifle roleType ok")
+            }
+    })
+
+}
+)
+
+
 // 处理POST请求有问题，后台没有
 // router.post("/login",(req,res)=>{
 //     // 处理跨域请求
