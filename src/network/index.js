@@ -133,3 +133,15 @@ export function AddRole(roleType,author,menu=undefined){
         }
     })
 }
+
+// 角色信息更改模块
+export function ModifyRole(_id,menu){
+    return request({
+        url:"/modifyRole",
+        method:"GET",
+        params:{
+            _id,
+            menu
+        }
+    })
+}

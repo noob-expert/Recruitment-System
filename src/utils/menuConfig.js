@@ -11,6 +11,7 @@ const menuList = [
     },
     {
         title: "个人中心",//菜单标题名称
+        key:"/profile",
         children: [
             {
                 title: "基本信息",
@@ -36,6 +37,7 @@ const menuList = [
     },
     {
         title: "职位管理",//菜单标题名称
+        key:"/jobManagement",
         children: [
             {
                 title: "内部推荐职位",

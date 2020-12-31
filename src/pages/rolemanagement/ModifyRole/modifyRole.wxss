@@ -1,0 +1,10 @@
+.modifyRole {
+  text-align: center;
+  font-size: 0.8rem;
+}
+.modifyRole button {
+  margin-left: 0.5rem;
+}
+.ant-tree-treenode {
+  font-size: 0.8rem !important;
+}

@@ -1,9 +1,10 @@
 .card {
-  width: 50rem;
+  width: 55rem;
   margin-top: 2rem;
   background-color: white;
   font-size: 0.7rem;
-  padding:0.5rem;
+  height: 90%;
+  overflow: scroll;
 }
 .card button {
   background-color: #264AB4;

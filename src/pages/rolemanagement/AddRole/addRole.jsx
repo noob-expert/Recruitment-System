@@ -13,20 +13,31 @@ export default class addRole extends Component {
     // 设置state状态
     state = {
         roleType: '',
-        isAddRole: this.props.isAddRole
+        isAddRole: ''
     }
 
     // 设置propTypes状态
     static propTypes = {
-        isAddRole: PropTypes.string.isRequired
+        isAddRole: PropTypes.string
     }
 
     // 在props传递状态更新时，监控并重新配置
-    componentWillReceiveProps(nextProps) {
+    // 这里会有个问题：父组件中，如果修改其他state，也会触发该生命周期调用，
+    // 但传过来的数值始终会是block
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({
+    //         isAddRole: nextProps.isAddRole
+    //     })
+    // }
+    // DidMount问题是只会更新一次
+    componentWillMount(){
         this.setState({
-            isAddRole: nextProps.isAddRole
+            isAddRole:this.props.isAddRole
         })
     }
+    // shouldComponentUpdate(){
+    //     return !(this.props.isAddRole==this.state.isAddRole)
+    // }
 
     // 获取受控组件的值
     handleRoleTypeInput = (event) => {
@@ -67,7 +78,8 @@ export default class addRole extends Component {
 
     render() {
         const { isAddRole } = this.state
-        // console.log(this.props.isAddRole);
+        console.log(this.props.isAddRole);
+        console.log(isAddRole);
         const { roleType } = this.state
         return (
             <div className="addRole" style={{ display: isAddRole }}>

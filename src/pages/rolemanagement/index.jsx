@@ -4,10 +4,9 @@ import React, { Component, useState } from 'react'
 import Styles from "./roleManage.module.css"
 
 // 引入ant-design组件--card
-import { Card, Table } from "antd"
+import { Card, Table ,Button} from "antd"
 
-// 引入本地local Storage中的值和时间戳转化
-import LocalStorage from "../../utils/storageUtils"
+// 引入时间戳转化
 import { formatDate } from "../../utils/timestamp"
 
 // 引入axios请求组件
@@ -37,25 +36,26 @@ const columns = [
 ]
 
 // 创建生成表格内容
-const jobs = [
-    {
-        key: "normal",
-        roleType: "普通账号",
-        createTime: formatDate(Date.now()),
-        author: LocalStorage.getUser()
-    },
-    {
-        key: "admin",
-        roleType: "admin账号",
-        createTime: formatDate(Date.now()),
-        author: LocalStorage.getUser()
-    }
-]
+// const jobs = [
+//     {
+//         key: "normal",
+//         roleType: "普通账号",
+//         createTime: formatDate(Date.now()),
+//         author: LocalStorage.getUser()
+//     },
+//     {
+//         key: "admin",
+//         roleType: "admin账号",
+//         createTime: formatDate(Date.now()),
+//         author: LocalStorage.getUser()
+//     }
+// ]
 
 export default class RoleManagement extends Component {
     // state样式
     state = {
         selectedRowKeys: [],
+        selectedRows:[],
         isAddRole:'none',
         isModifyRole:'none',
         roleTypes:[]
@@ -79,11 +79,10 @@ export default class RoleManagement extends Component {
         this.QueryRole()
     }
 
-
     // 勾选表格框按钮时
     onSelectChange = (selectedRowKeys, selectedRows) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows);
-        this.setState({ selectedRowKeys });
+        // console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows);
+        this.setState({ selectedRowKeys,selectedRows });
     };
 
     // 点击创建角色按钮时
@@ -93,21 +92,32 @@ export default class RoleManagement extends Component {
         })
     }
 
+    // 点击设置角色权限按钮时
+    showModifyRole=()=>{
+        this.setState({
+            isModifyRole:'block'
+        })
+    }
+
     // 引入标题样式
     CardTitle = () => {
         return (
             <div>
                 <button onClick={this.showAddRole}>创建角色</button> &nbsp;&nbsp;
-                <button style={{ disable: true }}
+                <button
                 onClick={this.showModifyRole}
+                className="modifyDisable"
+                // disabled={this.state.selectedRows?'false':'true'}
+                // disabled
                 >设置角色权限</button>
+                {/* <Button disabled>设置角色权限</Button> */}
             </div>
         )
     }
 
     render() {
 
-        const { selectedRowKeys,isAddRole,isModifyRole,roleTypes } = this.state;
+        const { selectedRowKeys,isAddRole,isModifyRole,roleTypes,selectedRows} = this.state;
 
         const roles=[]
 
@@ -127,6 +137,8 @@ export default class RoleManagement extends Component {
             selectedRowKeys,
             onChange: this.onSelectChange,
         };
+
+        console.log(selectedRows,isModifyRole);
         return (
             <div className={Styles.card}>
                 <Card title={this.CardTitle()} bordered={false} style={{ width: '100%' }}>
@@ -142,7 +154,7 @@ export default class RoleManagement extends Component {
                     />
                 </Card>
                 <AddRole isAddRole={isAddRole}/>
-                <ModifyRole isModifyRole={isModifyRole} />
+                <ModifyRole isModifyRole={isModifyRole} selectedRows={selectedRows} />
             </div>
         )
     }

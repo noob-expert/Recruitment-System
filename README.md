@@ -100,9 +100,10 @@ componentWillReceiveProps(nextProps){
     })
 }
 --在子组件中点击新增属性后并成功后，重新调用父组件中的角色请求函数：采用事件发布和订阅方式（写入踩坑笔记）
---点击单选框后，新增组件再次显示出来
- -->
+--BUG：点击单选框后，新增组件再次显示出来--写入踩坑笔记
 
+--React中useState的用法,和Reac Hook的使用
+ -->
 
 
 ## Available Scripts
