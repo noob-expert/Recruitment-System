@@ -1,0 +1,11 @@
+.AddUser {
+  padding-left: 1rem;
+  font-size: 0.6rem;
+}
+.AddUser h2 {
+  font-size: 0.8rem;
+}
+.AddUser input,
+.AddUser select {
+  margin-bottom: 0.5rem;
+}
