@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 import { Link, withRouter } from "react-router-dom"
 
-// 引入模态框
-import { Modal } from "antd"
+// 引入模态框和菜单栏
+import { Modal,Menu } from "antd"
 
 // 引入时间戳
 import {formatDate} from "../../utils/timestamp.js"
@@ -15,8 +15,12 @@ import Logo from "../../assets/image/fh.jpg"
 // 引入本地localStorage
 import methods from "../../utils/storageUtils"
 
+// 引入查询用户请求
+import {QueryUserByUsername,QueryRoleByRoleType} from "../../network/index"
+
 // 定义模态框函数
 const { confirm } = Modal
+const {SubMenu} = Menu
 
 let Interval
 
@@ -25,7 +29,21 @@ class LeftNav extends Component {
         show: true,
         showJob:true,
         currentUser: '',
-        currentTime: ''
+        currentTime: '',
+        menusList:[]
+    }
+
+    // 获取当前用户的menusList
+    GetMenus= async ()=>{
+        const username=methods.getUser()
+        const result=await QueryUserByUsername(username);
+        const roleType=result.data[0].roleType;
+        // console.log(roleType);
+        const result2=await QueryRoleByRoleType(roleType)
+        // console.log(result2);
+        this.setState({
+            menusList:result2.data[0].menu
+        })
     }
 
     handleClick = () => {
@@ -75,6 +93,8 @@ class LeftNav extends Component {
             this.setState({ currentUser })
         }
         this.getTime()
+        // 获取当前用户列表
+        this.GetMenus()
     }
 
     componentDidMount(){
@@ -91,7 +111,8 @@ class LeftNav extends Component {
         const { show,showJob } = this.state
         const display = show ? "none" : "block"
         const display2 =showJob?"none":"block"
-        const { currentUser,currentTime} = this.state
+        const { currentUser,currentTime,menusList} = this.state
+        // console.log(menusList);
         return (
             <div>
                 <div className="footer">
@@ -116,7 +137,7 @@ class LeftNav extends Component {
                     </div>
                     <div className="user">
                         <div className="user-top">
-                            <span>你好, {currentUser}</span>
+                            <span>你好, {currentUser}</span><br />
                             <a href="javascript;;" onClick={this.handlexitClick}>退出</a>
                         </div>
                         <div className="user-bottom">
