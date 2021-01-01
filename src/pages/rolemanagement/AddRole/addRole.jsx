@@ -6,6 +6,10 @@ import PropTypes from "prop-types"
 import { AddRole } from "../../../network/index"
 import LocalStorage from "../../../utils/storageUtils"
 
+// 引入发布订阅
+import PubSub from "pubsub-js"
+
+
 // 引入CSS样式
 import "./addRole.less"
 
@@ -13,7 +17,7 @@ export default class addRole extends Component {
     // 设置state状态
     state = {
         roleType: '',
-        isAddRole: ''
+        isAddRole: 'none'
     }
 
     // 设置propTypes状态
@@ -24,17 +28,17 @@ export default class addRole extends Component {
     // 在props传递状态更新时，监控并重新配置
     // 这里会有个问题：父组件中，如果修改其他state，也会触发该生命周期调用，
     // 但传过来的数值始终会是block
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({
-    //         isAddRole: nextProps.isAddRole
-    //     })
-    // }
-    // DidMount问题是只会更新一次
-    componentWillMount(){
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            isAddRole:this.props.isAddRole
+            isAddRole: nextProps.isAddRole
         })
     }
+    // DidMount问题是只会更新一次
+    // componentWillMount() {
+    //     this.setState({
+    //         isAddRole: this.props.isAddRole
+    //     })
+    // }
     // shouldComponentUpdate(){
     //     return !(this.props.isAddRole==this.state.isAddRole)
     // }
@@ -53,6 +57,8 @@ export default class addRole extends Component {
         this.setState({
             isAddRole: "none"
         })
+        // 发布恢复父组件addRole方法
+        PubSub.publish("restoreAddRole")
     }
 
     // 提交角色名按钮
@@ -60,9 +66,9 @@ export default class addRole extends Component {
         // 获取roleType值
         const { roleType } = this.state;
         // 获取授权人
-        const author=LocalStorage.getUser()
+        const author = LocalStorage.getUser()
         // 发送请求传入并获取结果
-        const result = await AddRole(roleType,author);
+        const result = await AddRole(roleType, author);
         if (result.status === 200) {
             message.success("创建用户角色权限成功")
             // 清除输入值,取消候选框
@@ -70,6 +76,9 @@ export default class addRole extends Component {
                 roleType: '',
                 isAddRole: "none"
             })
+            // 发布恢复父组件addRole方法和重新调用queryRole方法
+            PubSub.publish("restoreAddRole")
+            PubSub.publish("QueryRole")
         } else {
             message.error("创建用户角色权限失败")
         }
@@ -77,10 +86,7 @@ export default class addRole extends Component {
     }
 
     render() {
-        const { isAddRole } = this.state
-        console.log(this.props.isAddRole);
-        console.log(isAddRole);
-        const { roleType } = this.state
+        const { isAddRole,roleType } = this.state
         return (
             <div className="addRole" style={{ display: isAddRole }}>
                 <h2>创建新角色类型</h2>

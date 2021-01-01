@@ -11,3 +11,9 @@
   color: white;
   font-size: 0.7rem;
 }
+.card button:nth-child(2):disabled {
+  background: gray;
+}
+.card button:nth-child(3):disabled {
+  background: gray;
+}

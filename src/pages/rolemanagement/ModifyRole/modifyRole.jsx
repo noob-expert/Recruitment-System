@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 
 // 引入axios请求函数
-import {ModifyRole} from "../../../network/index"
+import { ModifyRole } from "../../../network/index"
 
 // 引入css样式
 import "./modifyRole.less"
@@ -12,6 +12,9 @@ import { message, Tree } from "antd"
 // 引入props
 import PropTypes from "prop-types"
 
+// 引入发布订阅
+import PubSub from "pubsub-js"
+
 // 引入左侧数据
 import menuList from "../../../utils/menuConfig"
 
@@ -19,7 +22,8 @@ const treeData = menuList
 
 export default class modifyRole extends Component {
     static propTypes = {
-        selectedRows: PropTypes.array.isRequired
+        selectedRows: PropTypes.array.isRequired,
+        isModifyRole:PropTypes.string.isRequired
     }
 
     state = {
@@ -32,8 +36,13 @@ export default class modifyRole extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            isModifyRole: nextProps.isModifyRole
+            isModifyRole: nextProps.isModifyRole,
         })
+        if(nextProps.selectedRows.length!==0){
+            this.setState({
+                checkedKeys:nextProps.selectedRows[0].menu
+            })
+        }
     }
 
     // 定义树节点函数
@@ -59,37 +68,42 @@ export default class modifyRole extends Component {
     };
 
     // 定义修改权限提交按钮
-    handleModifyRoleTypeSubmit= ()=>{
-        const _id=this.props.selectedRows[0].key
-        const menu =this.state.checkedKeys
-        console.log(_id,menu);
-        ModifyRole(_id,menu).then((result)=>{
+    handleModifyRoleTypeSubmit = () => {
+        const _id = this.props.selectedRows[0].key
+        const menu = this.state.checkedKeys
+        // console.log(_id, menu);
+        ModifyRole(_id, menu).then((result) => {
             message.success("修改角色权限成功")
             this.setState({
-                isModifyRole:"none"
+                isModifyRole: "none"
             })
+            // 发布恢复父组件ModifyRole方法,和重新调用queryRole方法
+            PubSub.publish("restoreModifyRole")
+            PubSub.publish("QueryRole")
         })
         // console.log(result);
     }
 
-        // 定义修改权限取消按钮
-        handleModifyRoleTypeCancel= ()=>{
-            this.setState({
-                isModifyRole: "none"
-            })
-            // console.log(result);
-        }
+    // 定义修改权限取消按钮
+    handleModifyRoleTypeCancel = () => {
+        this.setState({
+            isModifyRole: "none"
+        })
+        // 发布恢复父组件ModifyRole方法
+        PubSub.publish("restoreModifyRole")
+        // console.log(result);
+    }
 
     render() {
+        // console.log(this.props.selectedRows);
         // const有局部作用域
         if (this.props.selectedRows.length !== 0) {
             // const { roleType } = this.props.selectedRows[0]
             var { roleType } = this.props.selectedRows[0]
-            console.log(roleType);
+            // console.log(roleType);
         } else {
-            var roleType = ''
+            roleType = ''
         }
-
         const { expandedKeys,
             checkedKeys,
             selectedKeys,
