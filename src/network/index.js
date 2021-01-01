@@ -13,6 +13,7 @@ export function LoginPOST(username,password){
     })
 }
 
+// 登录验证用户
 export function Login(username,password){
     return request({
         url:"/login",
@@ -23,6 +24,62 @@ export function Login(username,password){
         }
     })
 }
+
+// 查询所有用户模块
+export function QueryUser(){
+    return request({
+        url:"/queryUser",
+        method:"GET",
+    })
+}
+
+// 查询特定用户模块
+export function QueryUserByUsername(username){
+    return request({
+        url:"/queryUserByUsername",
+        method:"GET",
+        params:{
+            username
+        }
+    })
+}
+
+// 新增用户模块
+export function AddNewUser(username,password,roleType){
+    return request({
+        url:"/addUser",
+        method:"GET",
+        params:{
+            username,
+            password,
+            roleType
+        }
+    })
+}
+
+// 重置用户名密码请求
+export function ResetPasswd(_id,password){
+    return request({
+        url:"/resetPasswd",
+        method:'GET',
+        params:{
+            _id,
+            password
+        }
+    })
+}
+
+// 删除用户模块
+export function DeleteUser(_id){
+    return request({
+        url:"/deleteUser",
+        method:"GET",
+        params:{
+            _id
+        }
+    })
+}
+
 
 // 内部招聘职位请求模块
 export function Jobs(){
@@ -120,6 +177,18 @@ export function QueryRole(){
     })
 }
 
+// 查询特定角色信息模块
+export function QueryRoleByRoleType(roleType){
+    return request({
+        url:"/queryRoleByRoleType",
+        method:"GET",
+        params:{
+            roleType
+        }
+    })
+}
+
+
 
 // 角色信息增加模块
 export function AddRole(roleType,author,menu=undefined){
@@ -133,6 +202,18 @@ export function AddRole(roleType,author,menu=undefined){
         }
     })
 }
+
+// 角色信息删除模块
+export function DeleteRole(_id){
+    return request({
+        url:"/deleteRole",
+        method:"GET",
+        params:{
+            _id
+        }
+    })
+}
+
 
 // 角色信息更改模块
 export function ModifyRole(_id,menu){
