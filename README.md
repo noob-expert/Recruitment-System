@@ -99,10 +99,21 @@ componentWillReceiveProps(nextProps){
         user:nextProps.user
     })
 }
---在子组件中点击新增属性后并成功后，重新调用父组件中的角色请求函数：采用事件发布和订阅方式（写入踩坑笔记）
---BUG：点击单选框后，新增组件再次显示出来--写入踩坑笔记
-
+--在子组件中点击新增属性后并成功后，重新调用父组件中的角色请求函数：采用事件发布和订阅方式，（写入踩坑笔记）
+--BUG：点击单选框后，新增组件再次显示出来；解决：在父组件中定义使isAdd/ModifyRole变为none的方法，然后发布订阅，在子组件中每次点击取消或确认后重新调用--（写入踩坑笔记）
+-- button设置disable样式的方法，和根据是否勾选显示
 --React中useState的用法,和Reac Hook的使用
+--
+
+3. 用户管理界面设计
+--基本原理和角色管理界面设计相似
+-- 如何获取到select选中的值?--(写入踩坑笔记)
+--A component is changing an uncontrolled input of type text to be controlled.返错的原因（默认为空）和解决方案
+
+4. 菜单权限管理界面
+menu
+递归
+--2个await，先根据用户名查询角色权限，再根据角色权限查询角色
  -->
 
 
