@@ -10,7 +10,7 @@ var jobs = require("./mongoosejobs")
 
 var recomds = require("./mongooserecomds");
 
-var role=require("./mongooserole")
+var role = require("./mongooserole")
 
 // 新增数据并实例化，验证成功
 // new user({
@@ -54,6 +54,96 @@ router.get("/login", (req, res) => {
     })
 })
 
+// 处理验证所有用户查询请求
+router.get("/queryUser", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    user.find((err, result) => {
+        if (err) {
+            console.log("query AllUsers Error")
+        } else {
+            res.send(result)
+        }
+    })
+})
+
+// 处理验证特定用户查询请求
+router.get("/queryUserByUsername", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取请求用户名
+    const { username } = req.query
+    console.log(username)
+    // 查询
+    user.find({username},(err,result)=>{
+        if (err) {
+            console.log("query UsersByUseranme Error")
+        } else {
+            console.log("query UsersByUseranme Success")
+            res.send(result)
+        }
+    })
+})
+
+
+// 处理新增用户请求
+router.get("/addUser", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取用户名，密码，roleType值
+    const { username, password, roleType } = req.query
+    // 新增内部招聘职位
+    new user({
+        username,
+        password,
+        roleType
+    }).save((err) => {
+        if (err) {
+            console.log(" add new user failed");
+        } else {
+            console.log("add new user ok");
+            res.send("Add new User OK")
+        }
+    })
+})
+
+// 处理重置用户名密码请求
+router.get("/resetPasswd", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取id值和密码
+    const { _id, password } = req.query
+    // 执行更新操作
+    user.findByIdAndUpdate(_id, { password }, (err) => {
+        if (err) {
+            console.log("reset Password Failed")
+            res.send("reset Password Failed")
+        } else {
+            console.log("reset Password Success")
+            res.send("reset Password Success")
+        }
+    })
+})
+
+// 处理删除用户请求
+router.get("/deleteUser", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取id值
+    const { _id } = req.query
+    // console.log(req.query,_id)
+    // 执行删除操作
+    user.findByIdAndDelete(_id, (err) => {
+        if (err) {
+            console.log("delete User Failed")
+            res.send("delete User Failed")
+        } else {
+            console.log("delete User Success")
+            res.send("delete User Success")
+        }
+    })
+})
+
 // 处理返回内部招聘职位查询请求
 router.get("/jobs", (req, res) => {
     // 处理跨域请求
@@ -75,13 +165,13 @@ router.get("/jobsFindByDepart", (req, res) => {
     // 处理跨域请求
     res.setHeader("Access-Control-Allow-Origin", "*")
     // 接收传送过来的depart
-    const {depart}=req.query
+    const { depart } = req.query
     // 查找并返回符合招聘部门的职位
-    jobs.find({depart},(err,results)=>{
-        if(err){
+    jobs.find({ depart }, (err, results) => {
+        if (err) {
             console.log("query Jobs by Depart error");
             res.send("failed")
-        }else{
+        } else {
             console.log("query Jobs by Depart success");
             res.send(results)
         }
@@ -153,13 +243,13 @@ router.get("/recomdsFindByDepart", (req, res) => {
     // 处理跨域请求
     res.setHeader("Access-Control-Allow-Origin", "*")
     // 接收传送过来的depart
-    const {depart}=req.query
+    const { depart } = req.query
     // 查找并返回符合招聘部门的职位
-    recomds.find({depart},(err,results)=>{
-        if(err){
+    recomds.find({ depart }, (err, results) => {
+        if (err) {
             console.log("query Recomds by Depart error");
             res.send("failed")
-        }else{
+        } else {
             console.log("query Recomds by Depart success");
             res.send(results)
         }
@@ -211,58 +301,94 @@ router.get("/recomdsDelete", (req, res) => {
 })
 
 // 处理用户角色查询请求
-router.get("/queryRole",(req,res)=>{
-   // 处理跨域请求
-res.setHeader("Access-Control-Allow-Origin", "*")
-// 查询用户角色 
-role.find((err,result)=>{
-    if(err){
-        console.log("query role falied");
-        res.send('query role failed')
-    }else{
-        console.log("query role success");
-        res.send(result)
-    }
+router.get("/queryRole", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 查询用户角色 
+    role.find((err, result) => {
+        if (err) {
+            console.log("query role falied");
+            res.send('query role failed')
+        } else {
+            console.log("query role success");
+            res.send(result)
+        }
+    })
 })
+
+// 处理验证特定用户角色查询请求
+router.get("/queryRoleByRoleType", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取请求用户名
+    const { roleType } = req.query
+    console.log(roleType)
+    // 查询
+    role.find({roleType},(err,result)=>{
+        if (err) {
+            console.log("query queryRoleByRoleType Error")
+        } else {
+            console.log("query queryRoleByRoleType Success")
+            res.send(result)
+        }
+    })
 })
+
 
 // 处理用户角色新增保存请求
-router.get("/addRole",(req,res)=>{
-// 处理跨域请求
-res.setHeader("Access-Control-Allow-Origin", "*")
-// 获取req请求值内容并保存
-console.log(req.query);
-const {roleType,menu,author}=req.query
-new role({
-    roleType,
-    menu,
-    author
-}).save((err)=>{
-    if(err){
-        console.log("add Role failed");
-        res.send("add role failed")
-    }else{
-        console.log("add Role success");
-        res.send("add role success")
-    }
-})
-})
-
-// 处理用户角色权限新增提交请求
-router.get("/modifyRole",(req,res)=>{
+router.get("/addRole", (req, res) => {
     // 处理跨域请求
     res.setHeader("Access-Control-Allow-Origin", "*")
     // 获取req请求值内容并保存
     console.log(req.query);
-    const {menu,_id}=req.query;
-    role.findByIdAndUpdate(_id,{menu:menu},(err,result)=>{
-            if (err) {
-                console.log("modify roleType error");
-                res.send("modifle roleType failed")
-            } else {
-                console.log("modify roleType success");
-                res.send("modifle roleType ok")
-            }
+    const { roleType, menu, author } = req.query
+    new role({
+        roleType,
+        menu,
+        author
+    }).save((err) => {
+        if (err) {
+            console.log("add Role failed");
+            res.send("add role failed")
+        } else {
+            console.log("add Role success");
+            res.send("add role success")
+        }
+    })
+})
+
+// 处理用户角色删除请求
+router.get("/deleteRole", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    const { _id } = req.query
+    console.log(req.query)
+    role.findByIdAndDelete(_id, (err, result) => {
+        if (err) {
+            console.log("delete roleType error");
+            res.send("delete roleType failed")
+        } else {
+            console.log("delete roleType success");
+            res.send("delete roleType success")
+        }
+    })
+})
+
+// 处理用户角色权限新增提交请求
+router.get("/modifyRole", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取req请求值内容并保存
+    console.log(req.query);
+    const { menu, _id } = req.query;
+    role.findByIdAndUpdate(_id, { menu: menu }, (err, result) => {
+        if (err) {
+            console.log("modify roleType error");
+            res.send("modifle roleType failed")
+        } else {
+            console.log("modify roleType success");
+            res.send("modifle roleType ok")
+        }
     })
 
 }
