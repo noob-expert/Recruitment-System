@@ -3,7 +3,7 @@
     padding: 4rem 0;
     color: white;
     position: relative;
-    height:30rem;
+    height:600px;
     // 定义logo样式
     .logo{
         position: absolute;
@@ -15,48 +15,51 @@
     // 定义title样式
     .title{
         width:100%;
+        font-size: 0.7rem !important;
         background-color: #264AB4;
+        // height: 100%;
         // padding:0.25rem 0;
-        div{
-            text-align: center;
-            margin:0.5rem 0;
-            position: relative;
-        }
-        &>div:not(.showonly,.showJobs):hover{
-            background-color:#6881CB !important
-        }
-        .profile::after{
-            content: '';
-            position: absolute;
-            top:0.4rem;
-            right:0.4rem;
-            border-top: 0.3rem solid white;
-            border-right: 0.3rem solid transparent;
-            border-bottom: 0.3rem solid transparent;
-            border-left: 0.3rem solid transparent;
-        }
-        .jobs::after{
-            content: '';
-            position: absolute;
-            top:0.4rem;
-            right:0.4rem;
-            border-top: 0.3rem solid white;
-            border-right: 0.3rem solid transparent;
-            border-bottom: 0.3rem solid transparent;
-            border-left: 0.3rem solid transparent;
-        }
+        // div{
+        //     text-align: center;
+        //     margin:0.5rem 0;
+        //     position: relative;
+        // }
     }
-    .showonly>div:hover{
-         background-color:#68cb70 !important
-    }
-    .showJobs>div:hover{
-        background-color:#68cb70 !important
-    }
+    //     &>div:not(.showonly,.showJobs):hover{
+    //         background-color:#6881CB !important
+    //     }
+    //     .profile::after{
+    //         content: '';
+    //         position: absolute;
+    //         top:0.4rem;
+    //         right:0.4rem;
+    //         border-top: 0.3rem solid white;
+    //         border-right: 0.3rem solid transparent;
+    //         border-bottom: 0.3rem solid transparent;
+    //         border-left: 0.3rem solid transparent;
+    //     }
+    //     .jobs::after{
+    //         content: '';
+    //         position: absolute;
+    //         top:0.4rem;
+    //         right:0.4rem;
+    //         border-top: 0.3rem solid white;
+    //         border-right: 0.3rem solid transparent;
+    //         border-bottom: 0.3rem solid transparent;
+    //         border-left: 0.3rem solid transparent;
+    //     }
+    // }
+    // .showonly>div:hover{
+    //      background-color:#68cb70 !important
+    // }
+    // .showJobs>div:hover{
+    //     background-color:#68cb70 !important
+    // }
 
     // 定义用户和天气样式
     .user{
         position: absolute;
-        bottom:0;
+        bottom:1rem;
         padding:0.2rem;
         text-align: center;
         color:white;
@@ -73,7 +76,36 @@
         }
         .user-bottom{
             font-size:0.6rem;
-            color:#744eb1
+            color:#744eb1;
+            text-align: center;
         }
     }
+}
+
+.ant-menu,ant-menu-sub,ant-menu-line{
+    background-color: #264AB4 !important;
+    text-align: left;
+    width:100%;
+    font-size: 0.7rem !important;
+    li{
+        width:100% !important;
+    }
+
+}
+
+.ant-menu-item,.ant-menu-inline,.ant-menu-vertical{
+    // height: 1.5rem !important;
+    // line-height: 1rem !important;
+    a::before{
+        // width:1rem;
+        height: 1rem !important;
+    }
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+    background-color: rgb(18, 160, 53) !important;
+}
+
+.ant-menu-vertical{
+    height: 1.5rem !important;
 }

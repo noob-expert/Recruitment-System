@@ -3,7 +3,7 @@
   padding: 4rem 0;
   color: white;
   position: relative;
-  height: 30rem;
+  height: 600px;
 }
 .footer .logo {
   position: absolute;
@@ -14,45 +14,12 @@
 }
 .footer .title {
   width: 100%;
+  font-size: 0.7rem !important;
   background-color: #264AB4;
-}
-.footer .title div {
-  text-align: center;
-  margin: 0.5rem 0;
-  position: relative;
-}
-.footer .title > div:not(.showonly,.showJobs):hover {
-  background-color: #6881CB !important;
-}
-.footer .title .profile::after {
-  content: '';
-  position: absolute;
-  top: 0.4rem;
-  right: 0.4rem;
-  border-top: 0.3rem solid white;
-  border-right: 0.3rem solid transparent;
-  border-bottom: 0.3rem solid transparent;
-  border-left: 0.3rem solid transparent;
-}
-.footer .title .jobs::after {
-  content: '';
-  position: absolute;
-  top: 0.4rem;
-  right: 0.4rem;
-  border-top: 0.3rem solid white;
-  border-right: 0.3rem solid transparent;
-  border-bottom: 0.3rem solid transparent;
-  border-left: 0.3rem solid transparent;
-}
-.footer .showonly > div:hover {
-  background-color: #68cb70 !important;
-}
-.footer .showJobs > div:hover {
-  background-color: #68cb70 !important;
 }
 .footer .user {
   position: absolute;
-  bottom: 0;
+  bottom: 1rem;
   padding: 0.2rem;
   text-align: center;
   color: white;
@@ -69,4 +36,29 @@
 .footer .user .user-bottom {
   font-size: 0.6rem;
   color: #744eb1;
+  text-align: center;
+}
+.ant-menu,
+ant-menu-sub,
+ant-menu-line {
+  background-color: #264AB4 !important;
+  text-align: left;
+  width: 100%;
+  font-size: 0.7rem !important;
+}
+.ant-menu li,
+ant-menu-sub li,
+ant-menu-line li {
+  width: 100% !important;
+}
+.ant-menu-item a::before,
+.ant-menu-inline a::before,
+.ant-menu-vertical a::before {
+  height: 1rem !important;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #12a035 !important;
+}
+.ant-menu-vertical {
+  height: 1.5rem !important;
 }
