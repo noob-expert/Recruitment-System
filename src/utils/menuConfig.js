@@ -12,6 +12,7 @@ const menuList = [
     {
         title: "个人中心",//菜单标题名称
         key:"/profile",
+        isPublic:true,
         children: [
             {
                 title: "基本信息",
@@ -40,11 +41,11 @@ const menuList = [
         key:"/jobManagement",
         children: [
             {
-                title: "内部推荐职位",
+                title: "内部推荐",
                 key: "/jobRecom"
             },
             {
-                title: "内部招聘职位",
+                title: "内部招聘",
                 key: "/jobRecruit"
             }
         ]
