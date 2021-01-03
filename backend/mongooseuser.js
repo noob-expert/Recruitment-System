@@ -18,10 +18,25 @@ var userSchema = new Schema({
         type: String,
         required: true
     },
-    gender: {
-        type: Number,
-        enum: [0, 1],
-        default: 0
+    realname:{
+        type: String,
+        default: ''
+    },
+    email: {
+        type: String,
+        default: ''
+    },
+    phoneNumber: {
+        type: String,
+        default: ''
+    },
+    depart: {
+        type: String,
+        default: ''
+    },
+    id: {
+        type: String,
+        default: ''
     },
     date: {
         type: Date,
@@ -29,11 +44,11 @@ var userSchema = new Schema({
     },
     roleType: {
         type: String,
-        default:''
+        default: ''
     },
-    author:{
-        type:String,
-        default:'admin'
+    author: {
+        type: String,
+        default: 'admin'
     }
 });
 

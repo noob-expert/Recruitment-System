@@ -91,12 +91,17 @@ router.get("/addUser", (req, res) => {
     // 处理跨域请求
     res.setHeader("Access-Control-Allow-Origin", "*")
     // 获取用户名，密码，roleType值
-    const { username, password, roleType } = req.query
+    const { username, password,realname, email,phoneNumber,depart,id,roleType } = req.query
     // 新增内部招聘职位
     new user({
         username,
         password,
-        roleType
+        realname,
+        roleType,
+        email,
+        phoneNumber,
+        depart,
+        id
     }).save((err) => {
         if (err) {
             console.log(" add new user failed");
