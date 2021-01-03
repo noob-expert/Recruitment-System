@@ -45,13 +45,18 @@ export function QueryUserByUsername(username){
 }
 
 // 新增用户模块
-export function AddNewUser(username,password,roleType){
+export function AddNewUser(username,password,realname,email,phoneNumber,depart,id,roleType){
     return request({
         url:"/addUser",
         method:"GET",
         params:{
             username,
             password,
+            realname,
+            email,
+            phoneNumber,
+            depart,
+            id,
             roleType
         }
     })

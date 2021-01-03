@@ -32,7 +32,7 @@ export default class Content extends Component {
                     <Route path="/Role" component={RoleManagement}></Route>
                     <Route path="/jobRecom" component={RecommendJobManagement}></Route>
                     <Route path="/jobRecruit" component={RecruitJobManagement}></Route>
-                    <Redirect to="/Recommend" />
+                    <Redirect exact={true} from='/' to="/Recommend" />
                 </Switch>
             </div>
         )
