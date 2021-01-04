@@ -13,6 +13,13 @@
 .myProfile123 .passwd {
   margin: 1rem 0;
 }
+.myProfile123 .accountBind-top {
+  margin: 1rem 0;
+  color: #989898;
+}
+.myProfile123 .accountBind-bottom {
+  margin-bottom: 2rem;
+}
 .myProfile123 input {
   width: 16rem;
   height: 1.5rem;

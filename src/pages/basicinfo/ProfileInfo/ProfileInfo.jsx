@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 // 引入css样式
 import Style from "./ProfileInfo.module.css"
 
+// 引入发布订阅
+import PubSub from "pubsub-js"
+
 // 引入本地localStorage
 import methods from "../../../utils/storageUtils"
 
@@ -11,6 +14,7 @@ import { QueryUserByUsername} from "../../../network/index"
 
 // 引入头像
 import userHeader from "../../../assets/image/user-header.jpg"
+
 
 export default class ProfileInfo extends Component {
     state={
@@ -21,6 +25,7 @@ export default class ProfileInfo extends Component {
     GetUserInfo=async()=>{
         const username = methods.getUser()
         const result = await QueryUserByUsername(username);
+        PubSub.publish("getUserDetail",result.data)
         this.setState({
             usersInfo:result.data
         })
@@ -28,16 +33,15 @@ export default class ProfileInfo extends Component {
 
     // 生命周期内请求用户信息
     componentDidMount(){
-        this.GetUserInfo()
+        this.GetUserInfo();
     }
 
     render() {
         // console.log(this.state.usersInfo);
         const {usersInfo}=this.state
-        console.log(usersInfo);
+        // console.log(usersInfo);
         if(usersInfo.length!==0){
             var {email,username,realname,phoneNumber,depart,id}=usersInfo[0]
-            console.log(email);
         }else{
             var email,username,realname,phoneNumber,depart,id=''
         }
