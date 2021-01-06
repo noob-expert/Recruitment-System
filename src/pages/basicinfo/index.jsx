@@ -45,6 +45,7 @@ export default class BasicInfo extends Component {
     // 生命周期内请求用户信息
     componentDidMount(){
             this.GetUserInfo();
+            
         }
 
     // 定义tabs onChange函数
