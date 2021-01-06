@@ -9,12 +9,15 @@ import "./iii.css"
 import { Recomds, RecomdsFindByDepart } from "../../../network/index"
 
 // 引入antd表单组件table
-import { Table } from 'antd';
+import { Table,Modal } from 'antd';
+
+// const {confirm}=Modal
 
 export default class PublicJob extends Component {
 
     state = {
-        recomds: []
+        recomds: [],
+        isModalVisible:false
     }
 
     // 加载所有请求函数
@@ -44,8 +47,31 @@ export default class PublicJob extends Component {
         this.setState({ recomds })
     }
 
+    handleOk=()=>{
+        console.log("确定");
+        this.setState({
+            isModalVisible:false
+        })
+    }
+
+    handleCancel=()=>{
+        console.log("取消");
+        this.setState({
+            isModalVisible:false
+        })
+    }
+
+
+    // 确认推荐
+    handleSendRecommend=()=>{
+        // console.log("投递简历");
+        this.setState({
+            isModalVisible:true
+        })
+    }
+
     render() {
-        const { recomds } = this.state
+        const { recomds, isModalVisible } = this.state
         // console.log(recomds);
         let Depart = ["烽火通信", "网络产出线", "烽火超微", "宽带业务产出线", "线缆产出线", "成都大唐", "烽火海洋网络设备有限公司", "公共研发部", "微电子部", "国内销售部", "系统设备制造部", "云计算研发中心", "烽火网络", "烽火云创", "光谷智慧", "人力资源部", "科技与运营部", "战略与市场部", "烽火技服", "湖北楚天云", "南京烽火星空", "烽火集成"];
         recomds.map((element) => {
@@ -83,7 +109,7 @@ export default class PublicJob extends Component {
                 title: '操作',
                 key: 'action',
                 render: () => (
-                    <button>我要推荐</button>
+                    <button onClick={this.handleSendRecommend}>我要推荐</button>
                 ),
             },
         ];
@@ -117,6 +143,13 @@ export default class PublicJob extends Component {
                     }
                 />
 
+                <Modal title="推荐人信息" visible={isModalVisible}
+                onOk={this.handleOk} onCancel={this.handleCancel}>
+                    <span>姓名:</span><input type="text" placeholder="请输入推荐人姓名"/><br/>
+                    <span>ID:</span><input type="text" placeholder="请输入推荐员工ID"/><br/>
+                    <span>邮箱:</span><input type="text" placeholder="请输入推荐员工邮箱"/><br/>
+                    <span>手机号码:</span><input type="text" placeholder="请输入推荐员工手机号码"/>
+                </Modal>
                 {
                 // 手撕的代码。。。
                 /* <table className={styles.section}>

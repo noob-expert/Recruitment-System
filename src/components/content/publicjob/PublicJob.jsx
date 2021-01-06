@@ -4,15 +4,25 @@ import React, { Component } from 'react'
 import styles from "./PublicJob.module.css"
 
 // 引入职位请求模块
-import { Jobs, JobsFindByDepart } from "../../../network/index"
+import { Jobs, JobsFindByDepart,QueryUserByUsername } from "../../../network/index"
 
 // 引入antd表单组件table
-import { Table } from 'antd';
+import { Table,Modal,message } from 'antd';
+
+// 引入发布订阅
+import PubSub from "pubsub-js"
+
+// 引入本地用户
+import Local from "../../../utils/storageUtils"
+
+
+const {confirm}=Modal
 
 export default class PublicJob extends Component {
     
     state = {
-        jobs: []
+        jobs: [],
+        Users:{}
     }
 
     // 加载所有请求函数
@@ -22,9 +32,20 @@ export default class PublicJob extends Component {
         this.setState({ jobs })
     }
 
+    // 获取当前用户信息
+    GetUsers=async()=>{
+        const username = Local.getUser()
+        const result = await QueryUserByUsername(username);
+        this.setState({
+            Users:result.data[0]
+        })
+
+    }
 
     componentDidMount() {
         this.JobsAll()
+        // console.log(Local.getUser());
+        this.GetUsers()
     }
 
     // 点击加载全部时的请求
@@ -43,9 +64,20 @@ export default class PublicJob extends Component {
         this.setState({ jobs })
     }
 
-    // 展开所有部门的功能
-    showAllDepartsClick = () => {
-
+    // 投递工作
+    handleSendJob=()=>{
+        // console.log("投递简历");
+        confirm({
+            title:'确认投递简历',
+            onOk:()=>{
+                console.log("ok");
+                // console.log(this.state.Users);
+                const{realname,id,email,phoneNumber,_id}=this.state.Users
+            },
+            onCancel(){
+                console.log("Cancel");
+            }
+        })
     }
 
     render() {
@@ -84,7 +116,7 @@ export default class PublicJob extends Component {
                 title: '操作',
                 key: 'action',
                 render: () => (
-                    <button>我要投递</button>
+                    <button onClick={this.handleSendJob}>我要投递</button>
                 ),
             },
         ];

@@ -44,7 +44,7 @@ class LeftNav extends Component {
         const roleType = result.data[0].roleType;
         // console.log(roleType);
         const result2 = await QueryRoleByRoleType(roleType)
-        // console.log(result2.data);
+        console.log(result2.data);
         if(result2.data.length!==0){
             this.setState({
                 menusAuthList: result2.data[0].menu
@@ -61,7 +61,7 @@ class LeftNav extends Component {
         2. 如果当前item是公开的，则返回true
         3. 如果当前用户有此item的权限：key在不在menus中，在的话则返回true
         */
-       if(currentUser==='admin'|| isPublic || menusAuthList.indexOf(key)!==-1){
+       if(currentUser==='Admin'|| isPublic || menusAuthList.indexOf(key)!==-1){
            return true
        }else if(item.children){
            return !!item.children.find(child=>menusAuthList.indexOf(child.key)!==-1)
