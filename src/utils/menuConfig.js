@@ -12,7 +12,7 @@ const menuList = [
     {
         title: "个人中心",//菜单标题名称
         key:"/profile",
-        isPublic:true,
+        // isPublic:true,
         children: [
             {
                 title: "基本信息",
