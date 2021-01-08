@@ -231,3 +231,47 @@ export function ModifyRole(_id,menu){
         }
     })
 }
+
+// 新增应聘职位模块
+export function addJobsRecord(position, depart, staffName, staffID, staffEmail, staffNumber){
+    return request({
+        url:"/addJobsRecord",
+        method:"GET",
+        params:{
+            position, depart, staffName, staffID, staffEmail, staffNumber
+        }
+    })
+}
+
+// 应聘记录请求模块
+export function QueryJobsRecord(currentUser){
+    return request({
+        url:"/queryJobsRecord",
+        method:"GET",
+        params:{
+            currentUser
+        }
+    })
+}
+
+// 新增推荐职位模块
+export function addRecomdRecord(position, depart, recomdName, recomdEmail, recomdNumber, staffName, staffID ){
+    return request({
+        url:"/addRecomdRecord",
+        method:"GET",
+        params:{
+            position, depart, recomdName, recomdEmail, recomdNumber, staffName, staffID 
+        }
+    })
+}
+
+// 推荐记录请求模块
+export function QueryRecomdRecord(currentUser){
+    return request({
+        url:"/queryRecommdRecord",
+        method:"GET",
+        params:{
+            currentUser
+        }
+    })
+}

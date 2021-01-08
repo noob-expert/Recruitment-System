@@ -20,18 +20,33 @@ export default class RecordRecom extends Component {
                 dataIndex: "depart",
                 key: "depart"
             },
+              {
+                title: '被推荐人姓名',
+                dataIndex: "recommendName",
+                key: "recommendName"
+            },
             {
-                title: '员工姓名',
+                title: '被推荐人邮箱',
+                dataIndex: "recommendEmail",
+                key: "recommendEmail"
+            },
+            {
+                title: '被推荐人手机号码',
+                dataIndex: "recommendPhoneNumber",
+                key: "recommendPhoneNumber"
+            },
+            {
+                title: '推荐员工姓名',
                 dataIndex: "staffName",
                 key: "staffName"
             },
             {
-                title: '员工ID',
+                title: '推荐员工ID',
                 dataIndex: "staffID",
                 key: "staffID"
             },
             {
-                title: '申请时间',
+                title: '更新时间',
                 dataIndex: "time",
                 key: "time"
             },
@@ -41,8 +56,11 @@ export default class RecordRecom extends Component {
                 key: '1',
                 position: "通信工程师",
                 depart: "烽火通信",
-                staffName: "柯京",
-                staffID: '0211006121',
+                recommendName:"柯京",
+                recommendEmail:"1229413925@qq.com",
+                recommendPhoneNumber:"18098981212",
+                staffName: "刘保军",
+                staffID: '0211006185',
                 time: "2021-01-05"
             }
         ]
