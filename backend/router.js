@@ -12,6 +12,9 @@ var recomds = require("./mongooserecomds");
 
 var role = require("./mongooserole")
 
+var jobRecord = require("./mongoosejobsrecord")
+
+var recomdRecord = require("./mongooserecomdsrecord")
 // 新增数据并实例化，验证成功
 // new user({
 //     username:"admin",
@@ -75,7 +78,7 @@ router.get("/queryUserByUsername", (req, res) => {
     const { username } = req.query
     console.log(username)
     // 查询
-    user.find({username},(err,result)=>{
+    user.find({ username }, (err, result) => {
         if (err) {
             console.log("query UsersByUseranme Error")
         } else {
@@ -91,7 +94,7 @@ router.get("/addUser", (req, res) => {
     // 处理跨域请求
     res.setHeader("Access-Control-Allow-Origin", "*")
     // 获取用户名，密码，roleType值
-    const { username, password,realname, email,phoneNumber,depart,id,roleType } = req.query
+    const { username, password, realname, email, phoneNumber, depart, id, roleType } = req.query
     // 新增内部招聘职位
     new user({
         username,
@@ -329,7 +332,7 @@ router.get("/queryRoleByRoleType", (req, res) => {
     const { roleType } = req.query
     console.log(roleType)
     // 查询
-    role.find({roleType},(err,result)=>{
+    role.find({ roleType }, (err, result) => {
         if (err) {
             console.log("query queryRoleByRoleType Error")
         } else {
@@ -399,7 +402,115 @@ router.get("/modifyRole", (req, res) => {
 }
 )
 
+// 处理应聘职位新增请求
+router.get("/addJobsRecord", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取req请求值内容并保存
+    console.log(req.query);
+    const { position, depart, staffName, staffID, staffEmail, staffNumber } = req.query
+    new jobRecord({
+        position,
+        depart,
+        staffName,
+        staffID,
+        staffEmail,
+        staffNumber
+    }).save((err) => {
+        if (err) {
+            console.log("add JobsRecord failed");
+            res.send("add JobsRecord failed")
+        } else {
+            console.log("add JobsRecord success");
+            res.send("add JobsRecord success")
+        }
+    })
+})
 
+// 处理应聘职位查询请求（判断请求用户名）
+router.get("/queryJobsRecord", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取req请求值内容并保存
+    console.log(req.query);
+    const { currentUser } = req.query
+    if (currentUser === "admin") {
+        jobRecord.find((err, result) => {
+            if (err) {
+                console.log("query JobsRecord Failed")
+                res.send("query JobsRecord Failed")
+            } else {
+                console.log("query JobsRecord Success")
+                res.send(result)
+            }
+        })
+    } else {
+        jobRecord.find({ staffName: currentUser }, (err, result) => {
+            if (err) {
+                console.log("query JobsRecord Failed")
+                res.send("query JobsRecord Failed")
+            } else {
+                console.log("query JobsRecord Success")
+                res.send(result)
+            }
+        })
+    }
+})
+
+// 处理推荐职位新增请求
+router.get("/addRecomdRecord", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取req请求值内容并保存
+    console.log(req.query);
+    const { position, depart, recomdName, recomdEmail, recomdNumber, staffName, staffID } = req.query
+    new recomdRecord({
+        position,
+        depart,
+        recomdName,
+        recomdEmail,
+        recomdNumber,
+        staffName,
+        staffID
+    }).save((err) => {
+        if (err) {
+            console.log("add RecomdRecord failed");
+            res.send("add RecomdRecord failed")
+        } else {
+            console.log("add RecomdRecord success");
+            res.send("add RecomdRecord success")
+        }
+    })
+})
+// 处理推荐职位查询请求
+router.get("/queryRecommdRecord", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取req请求值内容并保存
+    console.log(req.query);
+    const { currentUser } = req.query
+    if (currentUser === "admin") {
+        recomdRecord.find((err, result) => {
+            if (err) {
+                console.log("query recomdRecord Failed")
+                res.send("query recomdRecord Failed")
+            } else {
+                console.log("query recomdRecord Success")
+                res.send(result)
+            }
+        })
+    } else {
+        jobRecord.find({ staffName: currentUser }, (err, result) => {
+            if (err) {
+                console.log("query recomdRecord Failed")
+                res.send("query recomdRecord Failed")
+            } else {
+                console.log("query recomdRecord Success")
+                res.send(result)
+            }
+        })
+    }
+})
 // 处理POST请求有问题，后台没有
 // router.post("/login",(req,res)=>{
 //     // 处理跨域请求
