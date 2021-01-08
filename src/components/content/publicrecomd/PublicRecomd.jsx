@@ -5,8 +5,11 @@ import styles from "./PublicJob.module.css"
 
 import "./iii.css"
 
+// 引入本地用户
+import LocalUser from "../../../utils/storageUtils"
+
 // 引入职位请求模块
-import { Recomds, RecomdsFindByDepart } from "../../../network/index"
+import { Recomds, RecomdsFindByDepart,QueryUserByUsername,addRecomdRecord } from "../../../network/index"
 
 // 引入antd表单组件table
 import { Table,Modal } from 'antd';
@@ -17,8 +20,19 @@ export default class PublicJob extends Component {
 
     state = {
         recomds: [],
-        isModalVisible:false
+        isModalVisible:false,
+        currentJob:{},
+        Users:{}
     }
+
+    // 获取当前用户信息
+        GetUsers=async()=>{
+            const username = LocalUser.getUser()
+            const result = await QueryUserByUsername(username);
+            this.setState({
+                Users:result.data[0]
+            })
+        }
 
     // 加载所有请求函数
     RecomdsAll = async () => {
@@ -29,6 +43,7 @@ export default class PublicJob extends Component {
 
     componentWillMount() {
         this.RecomdsAll()
+        this.GetUsers()
     }
 
     // 处理点击全部时显示所有职位
@@ -47,8 +62,23 @@ export default class PublicJob extends Component {
         this.setState({ recomds })
     }
 
-    handleOk=()=>{
+    handleOk=async ()=>{
         console.log("确定");
+        // const {name,id,email,phone}
+        // console.log(this.state.currentJob)
+        const {realname,id}=this.state.Users
+        const{position,depart,address,date}=this.state.currentJob;
+        const name=this.name.value
+        const email=this.email.value
+        // const id=this.id.value
+        const phoneNumber=this.phoneNumber.value
+        // console.log(this.name.value,this.id.value,this.email.value,this.phoneNumber.value);
+        console.log(position,depart)
+        console.log(name,email,phoneNumber,realname,id)
+        // 发起请求
+        const result=await addRecomdRecord(position, depart, name, email, phoneNumber, realname, id )
+        // 结果
+        console.log(result)
         this.setState({
             isModalVisible:false
         })
@@ -63,10 +93,11 @@ export default class PublicJob extends Component {
 
 
     // 确认推荐
-    handleSendRecommend=()=>{
+    handleSendRecommend=(text)=>{
         // console.log("投递简历");
         this.setState({
-            isModalVisible:true
+            isModalVisible:true,
+            currentJob:text
         })
     }
 
@@ -108,9 +139,11 @@ export default class PublicJob extends Component {
             {
                 title: '操作',
                 key: 'action',
-                render: () => (
-                    <button onClick={this.handleSendRecommend}>我要推荐</button>
-                ),
+                render: (text,value,index) => {
+                    return (
+                        <button onClick={()=>this.handleSendRecommend(text)}>我要推荐</button>
+                    )
+                }
             },
         ];
         // const jobsDepart = []
@@ -145,10 +178,9 @@ export default class PublicJob extends Component {
 
                 <Modal title="推荐人信息" visible={isModalVisible}
                 onOk={this.handleOk} onCancel={this.handleCancel}>
-                    <span>姓名:</span><input type="text" placeholder="请输入推荐人姓名"/><br/>
-                    <span>ID:</span><input type="text" placeholder="请输入推荐员工ID"/><br/>
-                    <span>邮箱:</span><input type="text" placeholder="请输入推荐员工邮箱"/><br/>
-                    <span>手机号码:</span><input type="text" placeholder="请输入推荐员工手机号码"/>
+                    <span className={styles.spanBlock}>姓名:</span><input type="text" placeholder="请输入推荐人姓名" ref={input=>{this.name=input}}/><br/>
+                    <span className={styles.spanBlock}>邮箱:</span><input type="text" placeholder="请输入推荐员工邮箱" ref={input=>{this.email=input}}/><br/>
+                    <span className={styles.spanBlock}>手机号码:</span><input type="text" placeholder="请输入推荐员工手机号码" ref={input=>{this.phoneNumber=input}}/>
                 </Modal>
                 {
                 // 手撕的代码。。。

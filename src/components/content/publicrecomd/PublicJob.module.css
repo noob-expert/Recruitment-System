@@ -37,3 +37,7 @@
 .publicJob .depart .right a:not(:first-child) {
   color: black;
 }
+.spanBlock {
+  display: inline-block;
+  width: 4rem !important;
+}

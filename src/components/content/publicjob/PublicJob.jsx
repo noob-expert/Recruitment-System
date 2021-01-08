@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import styles from "./PublicJob.module.css"
 
 // 引入职位请求模块
-import { Jobs, JobsFindByDepart,QueryUserByUsername } from "../../../network/index"
+import { Jobs, JobsFindByDepart,QueryUserByUsername,addJobsRecord } from "../../../network/index"
 
 // 引入antd表单组件table
 import { Table,Modal,message } from 'antd';
@@ -39,7 +39,6 @@ export default class PublicJob extends Component {
         this.setState({
             Users:result.data[0]
         })
-
     }
 
     componentDidMount() {
@@ -65,14 +64,23 @@ export default class PublicJob extends Component {
     }
 
     // 投递工作
-    handleSendJob=()=>{
+    handleSendJob=(index)=>{
+        // console.log(event);
         // console.log("投递简历");
         confirm({
             title:'确认投递简历',
             onOk:()=>{
                 console.log("ok");
+                const {jobs}=this.state
+                // console.log(this.state.jobs);
                 // console.log(this.state.Users);
                 const{realname,id,email,phoneNumber,_id}=this.state.Users
+                const{position,depart}=jobs[index]
+                console.log(position,depart);
+                console.log(realname,id,email,phoneNumber,_id);
+                addJobsRecord(position, depart, realname, id, email, phoneNumber).then(res=>{
+                    console.log(res)
+                })
             },
             onCancel(){
                 console.log("Cancel");
@@ -115,9 +123,14 @@ export default class PublicJob extends Component {
             {
                 title: '操作',
                 key: 'action',
-                render: () => (
-                    <button onClick={this.handleSendJob}>我要投递</button>
-                ),
+                render: (text,record,index) => {
+                    // 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引
+                    // console.log(text);
+                    // return {
+                    //     <button onClick={this.handleSendJob}>我要投递</button>
+                    // }
+                    return <button onClick={()=>this.handleSendJob(index)}>我要投递</button>
+                }
             },
         ];
         let Depart = ["烽火通信", "网络产出线", "烽火超微", "宽带业务产出线", "线缆产出线", "成都大唐", "烽火海洋网络设备有限公司", "公共研发部", "微电子部", "国内销售部", "系统设备制造部", "云计算研发中心", "烽火网络", "烽火云创", "光谷智慧", "人力资源部", "科技与运营部", "战略与市场部", "烽火技服", "湖北楚天云", "南京烽火星空", "烽火集成"];
