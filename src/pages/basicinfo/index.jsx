@@ -50,7 +50,7 @@ export default class BasicInfo extends Component {
 
     // 定义tabs onChange函数
     callback = (key) => {
-        console.log(key);
+        // console.log(key);
     }
 
     // 定义原密码输入函数

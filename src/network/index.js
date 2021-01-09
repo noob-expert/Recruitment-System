@@ -94,6 +94,17 @@ export function Jobs(){
     })
 }
 
+// 根据特定条件搜索内部推荐职位请求模块
+export function JobsByPosition(positionName){
+    return request({
+        url:"/jobsByPosition",
+        method:"GET",
+        params:{
+            positionName
+        }
+    })
+}
+
 // 根据内部招聘部门请求内部招聘职位模块
 export function JobsFindByDepart(depart){
     return request({
@@ -135,6 +146,17 @@ export function Recomds(){
     return request({
         url:"/recomds",
         method:"GET"
+    })
+}
+
+// 根据特定条件搜索内部推荐职位请求模块
+export function RecomdsByPosition(positionName){
+    return request({
+        url:"/recomdsByPosition",
+        method:"GET",
+        params:{
+            positionName
+        }
     })
 }
 
@@ -218,7 +240,6 @@ export function DeleteRole(_id){
         }
     })
 }
-
 
 // 角色信息更改模块
 export function ModifyRole(_id,menu){

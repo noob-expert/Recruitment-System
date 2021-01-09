@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import styles from "./PublicJob.module.css"
 
 // 引入职位请求模块
-import { Jobs, JobsFindByDepart,QueryUserByUsername,addJobsRecord } from "../../../network/index"
+import { Jobs, JobsFindByDepart,QueryUserByUsername,addJobsRecord,JobsByPosition } from "../../../network/index"
 
 // 引入antd表单组件table
 import { Table,Modal,message } from 'antd';
@@ -32,6 +32,13 @@ export default class PublicJob extends Component {
         this.setState({ jobs })
     }
 
+    // 根据职位关键字获取内部招聘职位请求
+    queryJobsByName=async (positionkey)=>{
+        const result=await JobsByPosition(positionkey)
+        // console.log(result);
+        this.setState({ jobs:result.data })
+    }
+
     // 获取当前用户信息
     GetUsers=async()=>{
         const username = Local.getUser()
@@ -45,6 +52,10 @@ export default class PublicJob extends Component {
         this.JobsAll()
         // console.log(Local.getUser());
         this.GetUsers()
+        PubSub.subscribe("SearchJob",(msg,data)=>{
+            // console.log(data+"---");
+            this.queryJobsByName(data)
+        })
     }
 
     // 点击加载全部时的请求
@@ -76,10 +87,11 @@ export default class PublicJob extends Component {
                 // console.log(this.state.Users);
                 const{realname,id,email,phoneNumber,_id}=this.state.Users
                 const{position,depart}=jobs[index]
-                console.log(position,depart);
-                console.log(realname,id,email,phoneNumber,_id);
+                // console.log(position,depart);
+                // console.log(realname,id,email,phoneNumber,_id);
                 addJobsRecord(position, depart, realname, id, email, phoneNumber).then(res=>{
                     console.log(res)
+                    message.success("投递简历成功")
                 })
             },
             onCancel(){
@@ -134,7 +146,7 @@ export default class PublicJob extends Component {
             },
         ];
         let Depart = ["烽火通信", "网络产出线", "烽火超微", "宽带业务产出线", "线缆产出线", "成都大唐", "烽火海洋网络设备有限公司", "公共研发部", "微电子部", "国内销售部", "系统设备制造部", "云计算研发中心", "烽火网络", "烽火云创", "光谷智慧", "人力资源部", "科技与运营部", "战略与市场部", "烽火技服", "湖北楚天云", "南京烽火星空", "烽火集成"];
-        jobs.map((element) => {
+        jobs.forEach((element) => {
             Depart.push(element.depart)
         })
         let newDepart = [...new Set(Depart)]

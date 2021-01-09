@@ -130,8 +130,21 @@ menu
 --// column API里面的render可以传入参数，生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引
 --把text放入state属性中，在点击ok后提取确认
 
-8. 应聘记录和推荐记录的分权分域功能
+8. 应聘记录和推荐记录的分权分域功能（写入踩坑笔记）
 --在后端处理应聘/推荐职位查询请求时处理，如果是admin，则返回左右，如果不是，则find并返回匹配对应的内容
+
+9. 处理筛别请求时，通过SSR服务端渲染进行当前请求用户的判断
+
+10. login侧ant-design样式的渲染
+
+11. 搜索功能的实现原理（踩坑笔记）
+    --发布订阅，获取到搜索内容后，在内推/内招界面进行捕获，并后台查询返回数据
+    --后台要运用正则表达式的方式模糊查询
+
+12. 返错Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.(踩坑笔记)
+
+13.点击input后外边框显示问题
+默认css样式，通过style="outline:none"
  -->
 
 

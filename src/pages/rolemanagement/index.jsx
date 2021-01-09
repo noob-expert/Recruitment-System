@@ -179,7 +179,7 @@ export default class RoleManagement extends Component {
             onChange: this.onSelectChange,
         };
 
-        console.log(selectedRows,isModifyRole);
+        // console.log(selectedRows,isModifyRole);
         return (
             <div className={Styles.card}>
                 <Card title={this.CardTitle()} bordered={false} style={{ width: '100%' }}>

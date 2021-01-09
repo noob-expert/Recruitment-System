@@ -5,14 +5,17 @@ import styles from "./PublicJob.module.css"
 
 import "./iii.css"
 
+// 引入发布订阅
+import PubSub from "pubsub-js"
+
 // 引入本地用户
 import LocalUser from "../../../utils/storageUtils"
 
 // 引入职位请求模块
-import { Recomds, RecomdsFindByDepart,QueryUserByUsername,addRecomdRecord } from "../../../network/index"
+import { Recomds, RecomdsFindByDepart,QueryUserByUsername,addRecomdRecord,RecomdsByPosition } from "../../../network/index"
 
 // 引入antd表单组件table
-import { Table,Modal } from 'antd';
+import { Table,Modal,message } from 'antd';
 
 // const {confirm}=Modal
 
@@ -26,7 +29,7 @@ export default class PublicJob extends Component {
     }
 
     // 获取当前用户信息
-        GetUsers=async()=>{
+    GetUsers=async()=>{
             const username = LocalUser.getUser()
             const result = await QueryUserByUsername(username);
             this.setState({
@@ -41,9 +44,26 @@ export default class PublicJob extends Component {
         this.setState({ recomds })
     }
 
+    // 根据关键字查找推荐职位
+    queryRecomdsByName=async (positionkey)=>{
+        const result=await RecomdsByPosition(positionkey)
+        // console.log(result);
+        this.setState({ recomds:result.data })
+    }
+
+
     componentWillMount() {
         this.RecomdsAll()
         this.GetUsers()
+    }
+
+
+    // 生命周期内监控订阅搜索工作
+    componentDidMount(){
+        PubSub.subscribe("SearchJob",(msg,data)=>{
+            // console.log(data+"---");
+            this.queryRecomdsByName(data)
+        })
     }
 
     // 处理点击全部时显示所有职位
@@ -73,12 +93,13 @@ export default class PublicJob extends Component {
         // const id=this.id.value
         const phoneNumber=this.phoneNumber.value
         // console.log(this.name.value,this.id.value,this.email.value,this.phoneNumber.value);
-        console.log(position,depart)
+        // console.log(position,depart)
         console.log(name,email,phoneNumber,realname,id)
         // 发起请求
         const result=await addRecomdRecord(position, depart, name, email, phoneNumber, realname, id )
         // 结果
-        console.log(result)
+        // console.log(result)
+        message.success("推荐成功")
         this.setState({
             isModalVisible:false
         })
@@ -105,7 +126,7 @@ export default class PublicJob extends Component {
         const { recomds, isModalVisible } = this.state
         // console.log(recomds);
         let Depart = ["烽火通信", "网络产出线", "烽火超微", "宽带业务产出线", "线缆产出线", "成都大唐", "烽火海洋网络设备有限公司", "公共研发部", "微电子部", "国内销售部", "系统设备制造部", "云计算研发中心", "烽火网络", "烽火云创", "光谷智慧", "人力资源部", "科技与运营部", "战略与市场部", "烽火技服", "湖北楚天云", "南京烽火星空", "烽火集成"];
-        recomds.map((element) => {
+        recomds.forEach((element) => {
             Depart.push(element.depart)
         })
         let newDepart = [...new Set(Depart)]

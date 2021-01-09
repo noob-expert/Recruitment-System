@@ -6,15 +6,50 @@ import "./recordrecru.less"
 // 引入ant-d
 import { Table, message } from "antd"
 
+// 引入本地
+import LocalMethod from "../../utils/storageUtils"
+
+// 引入网络请求
+import {QueryJobsRecord,QueryUserByUsername} from "../../network/index"
 
 export default class RecordRecru extends Component {
 
     state = {
-        name: "投递记录"
+        name: "投递记录",
+        JobsTableData:[]
     }
 
+    // 获取当前用户并引入应聘职位请求
+    getJobsRecord=async()=>{
+        var currentUser=LocalMethod.getUser()
+        if(currentUser==='admin'){
+            const adminresult=await QueryJobsRecord(currentUser)
+            // console.log(adminresult);
+            this.setState({
+                JobsTableData:adminresult.data
+            })
+        }else{
+            const userInfo=await QueryUserByUsername(currentUser)
+            const user=userInfo.data[0];
+            const realUser=user.realname;
+            // console.log(realUser);
+            const realresult=await QueryJobsRecord(realUser)
+            // console.log(realresult);
+            this.setState({
+                JobsTableData:realresult.data
+            })
+        }
+    }
+
+    // 生命周期内引入
+    componentDidMount(){
+        this.getJobsRecord()
+    }
+
+
     render() {
-        const { name } = this.state
+        const { name , JobsTableData} = this.state
+        // console.log(JobsTableData);
         const columns = [
             {
                 title: '应聘职位',
@@ -38,36 +73,25 @@ export default class RecordRecru extends Component {
             },
             {
                 title: '员工邮箱',
-                dataIndex: "email",
-                key: "email"
+                dataIndex: "staffEmail",
+                key: "staffEmail"
             },
             {
                 title: '手机号码',
-                dataIndex: "phoneNumber",
-                key: "phoneNumber"
+                dataIndex: "staffNumber",
+                key: "staffNumber"
             },
             {
                 title: '申请时间',
-                dataIndex: "time",
-                key: "time"
+                dataIndex: "date",
+                key: "date"
             },
         ]
-        const dataSource = [
-            {
-                key: '1',
-                position: "网络工程师",
-                depart: "烽火网络",
-                staffName: "刘宝军",
-                staffID: '0211006185',
-                email:"bjliu6185@fiberhome.com",
-                phoneNumber:'15202729170',
-                time: "2021-01-06"
-            }
-        ]
+
         return (
             <div className="Record">
                 <h2>{name}</h2>
-                <Table dataSource={dataSource} columns={columns}
+                <Table dataSource={JobsTableData} columns={columns}
                     pagination={
                         {
                             defaultCurrent: 1,
