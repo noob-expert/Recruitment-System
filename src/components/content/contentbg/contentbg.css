@@ -19,9 +19,6 @@
   border-radius: 5rem;
   border: transparent;
 }
-.bg .searchban .search:hover {
-  border: 1px solid blue;
-}
 .bg .searchban button {
   width: 5rem;
   background-color: #264AB4;
