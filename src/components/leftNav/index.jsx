@@ -44,7 +44,7 @@ class LeftNav extends Component {
         const roleType = result.data[0].roleType;
         // console.log(roleType);
         const result2 = await QueryRoleByRoleType(roleType)
-        console.log(result2.data);
+        // console.log(result2.data);
         if(result2.data.length!==0){
             this.setState({
                 menusAuthList: result2.data[0].menu
@@ -176,7 +176,7 @@ class LeftNav extends Component {
     componentWillMount() {
         // console.log(methods.getUser())
         let currentUser = methods.getUser()
-        if (JSON.stringify(currentUser) == '{}') {
+        if (JSON.stringify(currentUser) === '{}') {
             // 为空则跳转至登录页
             this.props.history.replace('/login')
         } else {

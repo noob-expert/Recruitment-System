@@ -19,10 +19,12 @@
 }
 .footer .user {
   position: absolute;
-  bottom: 1rem;
+  z-index: 999;
+  bottom: 0;
   padding: 0.2rem;
   text-align: center;
   color: white;
+  width: 6rem;
 }
 .footer .user .user-top {
   margin-bottom: 0.3rem;
@@ -35,7 +37,6 @@
 }
 .footer .user .user-bottom {
   font-size: 0.6rem;
-  color: #744eb1;
   text-align: center;
 }
 .ant-menu,
