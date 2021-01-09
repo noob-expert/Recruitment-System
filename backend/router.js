@@ -168,6 +168,28 @@ router.get("/jobs", (req, res) => {
     })
 })
 
+// 处理根据关键字职位名返回内部招聘职位查询请求
+router.get("/jobsByPosition", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取职位关键字
+    const {positionName}=req.query
+    const positionNameRegExp=new RegExp(positionName)
+    console.log(positionNameRegExp)
+    // 查找并返回所有jobs数据;
+    jobs.find({
+        position:positionNameRegExp
+    },(err, result) => {
+        if (err) {
+            console.log("query jobsByPosition error");
+            res.send("failed")
+        } else {
+            console.log("query jobsByPosition success");
+            res.send(result)
+        }
+    })
+})
+
 // 处理根据内部招聘部门返回招聘职位查询请求
 router.get("/jobsFindByDepart", (req, res) => {
     // 处理跨域请求
@@ -245,6 +267,30 @@ router.get("/recomds", (req, res) => {
         }
     })
 })
+
+// 处理根据关键字职位名返回内部推荐职位查询请求
+router.get("/recomdsByPosition", (req, res) => {
+    // 处理跨域请求
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    // 获取职位关键字
+    const {positionName}=req.query
+    const positionNameRegExp=new RegExp(positionName)
+    console.log(positionNameRegExp)
+    // 查找并返回所有jobs数据;
+    recomds.find({
+        position:positionNameRegExp
+    },(err, result) => {
+        if (err) {
+            console.log("query recomdsByPosition error");
+            res.send("failed")
+        } else {
+            console.log("query recomdsByPosition success");
+            res.send(result)
+        }
+    })
+})
+
+
 
 // 处理根据内部推荐部门返回推荐职位查询请求
 router.get("/recomdsFindByDepart", (req, res) => {
@@ -500,7 +546,7 @@ router.get("/queryRecommdRecord", (req, res) => {
             }
         })
     } else {
-        jobRecord.find({ staffName: currentUser }, (err, result) => {
+        recomdRecord.find({ staffName: currentUser }, (err, result) => {
             if (err) {
                 console.log("query recomdRecord Failed")
                 res.send("query recomdRecord Failed")

@@ -36,6 +36,11 @@ var jobRecordSchema=new Schema({
         type:String,
         required:true
     },
+    key:{
+        type:String,
+        required:true,
+        default:Date.now()
+    },
     date:{
         type:String,
         required:true,
