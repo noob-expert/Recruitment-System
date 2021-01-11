@@ -51,15 +51,10 @@ export default class PublicJob extends Component {
         this.setState({ recomds:result.data })
     }
 
-
-    componentWillMount() {
-        this.RecomdsAll()
-        this.GetUsers()
-    }
-
-
     // 生命周期内监控订阅搜索工作
     componentDidMount(){
+                this.RecomdsAll()
+        this.GetUsers()
         PubSub.subscribe("SearchJob",(msg,data)=>{
             // console.log(data+"---");
             this.queryRecomdsByName(data)
