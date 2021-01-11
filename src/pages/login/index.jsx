@@ -79,7 +79,7 @@ export default class login extends Component {
                     </Form>
                 </div>
                 <footer>
-                    <p>@2020 Liubaojun.ltd</p>
+                    <p>@2020 liubaojun.ltd</p>
                     <p>个人前端项目测试网站</p>
                     <a href={"http://beian.miit.gov.cn"}>晋ICP备2020013886号</a>
                 </footer>
